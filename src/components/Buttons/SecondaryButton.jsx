@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const SecondaryButton = ({ title }) => {
   return (
@@ -9,3 +9,7 @@ const SecondaryButton = ({ title }) => {
 };
 
 export default SecondaryButton;
+
+SecondaryButton.propTypes = {
+  title: PropTypes.string.isRequired,
+};
