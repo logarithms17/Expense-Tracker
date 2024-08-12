@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const CategoriesList = ({ data }) => {
   return (
     <ul className="flex flex-col gap-[10px]">
@@ -24,3 +26,7 @@ const CategoriesList = ({ data }) => {
 };
 
 export default CategoriesList;
+
+CategoriesList.propTypes = {
+  data: PropTypes.array.isRequired,
+};

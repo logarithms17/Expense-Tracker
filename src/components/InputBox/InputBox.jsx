@@ -1,12 +1,13 @@
 import React from "react";
 
-const InputBox = ({ name, placeholder }) => {
+const InputBox = ({ name, placeholder, title, backgroundColor }) => {
   return (
-    <label htmlFor="">
+    <label htmlFor="" className="flex-1">
+      <p className="pb-3">{title}</p>
       <input
         type={name}
         placeholder={placeholder}
-        className="bg-black border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-[399px]"
+        className={`${backgroundColor} border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full`}
       />
     </label>
   );

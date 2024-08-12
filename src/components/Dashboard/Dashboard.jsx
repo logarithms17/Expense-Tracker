@@ -3,6 +3,7 @@ import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 import ExpenseChart from "../ExpenseChart/ExpenseChart";
+import TransactionForm from "../TransactionForm/TransactionForm";
 
 const Dashboard = () => {
   return (
@@ -30,7 +31,9 @@ const Dashboard = () => {
           <ExpenseChart />
         </div>
       </section>
-      <section>World</section>
+      <section className="mt-14 p-8 bg-neutral-900 rounded-3xl w-[600px]">
+        <TransactionForm />
+      </section>
     </main>
   );
 };

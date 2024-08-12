@@ -20,9 +20,17 @@ const SignIn = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 pb-20">
-          <InputBox type="email" placeholder="Email" />
-          <InputBox type="password" placeholder="Password" />
+        <div className="flex flex-col gap-6 pb-20 w-[399px]">
+          <InputBox
+            type="email"
+            placeholder="Email"
+            backgroundColor="bg-black"
+          />
+          <InputBox
+            type="password"
+            placeholder="Password"
+            backgroundColor="bg-black"
+          />
         </div>
 
         <div className="flex flex-col gap-5 items-start pt-12">

@@ -22,7 +22,7 @@ const ExpenseChart = () => {
         height: "300px",
         backgroundColor: "#1E1E1E",
         padding: "20px",
-        borderRadius: "10px",
+        borderRadius: "20px",
       }}
     >
       <h2 style={{ color: "white", marginBottom: "20px" }}>
