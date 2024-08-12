@@ -6,7 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
   return (
-    <div className="container mx-auto py-5">
+    <div className="container mx-auto py-8 px-[100px]">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 mt-12 gap-10">
       <HeroImage />
       <section>
         <div>

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 mt-[74px] gap-10">
       <HeroImage />
       <section className="flex flex-col justify-between">
         <div>
