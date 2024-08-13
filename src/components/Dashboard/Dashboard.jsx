@@ -4,10 +4,12 @@ import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 import ExpenseChart from "../ExpenseChart/ExpenseChart";
 import TransactionForm from "../TransactionForm/TransactionForm";
+import CategoriesModal from "../Modals/CategoriesModal";
 
 const Dashboard = () => {
   return (
     <main className="flex gap-10">
+      <CategoriesModal />
       <section>
         <h1 className="mt-[59px]">Expense Log</h1>
         <p className="description mt-5">
@@ -19,11 +21,17 @@ const Dashboard = () => {
             title="Total Income"
             backgroundColor="bg-neutral-900"
             src={arrowIcon}
+            textColor="text-white"
+            percentage=""
+            display="block"
           />
           <FinanceWidget
             title="Total Expense"
             backgroundColor="bg-neutral-900"
             src={arrowDownIcon}
+            textColor="text-white"
+            percentage=""
+            display="block"
           />
         </div>
 

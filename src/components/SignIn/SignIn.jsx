@@ -5,6 +5,14 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    console.log(formData.get("email"));
+    console.log(formData.get("password"));
+  };
+
   return (
     <div className="grid grid-cols-2 mt-12 gap-10">
       <HeroImage />
@@ -20,28 +28,34 @@ const SignIn = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 pb-20 w-[399px]">
-          <InputBox
-            type="email"
-            placeholder="Email"
-            backgroundColor="bg-black"
-          />
-          <InputBox
-            type="password"
-            placeholder="Password"
-            backgroundColor="bg-black"
-          />
-        </div>
+        <form action="" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-6 pb-18 w-[399px]">
+            <InputBox
+              type="email"
+              placeholder="Email"
+              backgroundColor="bg-black"
+              name="email"
+              title=""
+            />
+            <InputBox
+              type="password"
+              placeholder="Password"
+              backgroundColor="bg-black"
+              name="password"
+              title=""
+            />
+          </div>
 
-        <div className="flex flex-col gap-5 items-start pt-12">
-          <PrimaryButton title="Sign In" />
-          <p className="text-neutral-400">
-            Already have account?{" "}
-            <span className="text-neutral-200 underline underline-offset-4">
-              <Link to="/signup">Sign Up</Link>
-            </span>
-          </p>
-        </div>
+          <div className="flex flex-col gap-5 items-start pt-12">
+            <PrimaryButton title="Sign In" />
+            <p className="text-neutral-400">
+              Already have account?{" "}
+              <span className="text-neutral-200 underline underline-offset-4">
+                <Link to="/signup">Sign Up</Link>
+              </span>
+            </p>
+          </div>
+        </form>
       </section>
     </div>
   );

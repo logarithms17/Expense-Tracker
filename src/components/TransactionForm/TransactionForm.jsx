@@ -1,40 +1,71 @@
 import React from "react";
 import InputBox from "../InputBox/InputBox";
+import PrimaryButton from "../Buttons/PrimaryButton";
+import CurrencyInputBox from "../InputBox/CurrencyInputBox";
+import RadioInput from "../InputBox/RadioInput";
 
 const TransactionForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    console.log(formData);
+
+    console.log(formData.get("date"));
+    console.log(formData.get("time"));
+    console.log(formData.get("category"));
+    console.log(formData.get("comment"));
+    console.log(formData.get("sum"));
+    console.log(formData.get("currency"));
+    console.log(formData.get("type"));
+
+    console.log(formData.get("email"));
+  };
   return (
-    <form action="" className="flex flex-col gap-5">
-      <div className="flex items-center">
-        <label htmlFor="" className="flex">
-          <input type="radio" />
-          <p>Expense</p>
-        </label>
-        <label htmlFor="" className="flex">
-          <input type="radio" />
-          <p>Income</p>
-        </label>
+    <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <div className="flex items-center gap-5">
+        <RadioInput title="Expense" />
+        <RadioInput title="Income" />
       </div>
 
       <div className="flex flex-col gap-5">
-        <div className="flex">
-          <InputBox name="date" title="Date" backgroundColor="bg-neutral-900" />
-          <InputBox name="time" title="Time" backgroundColor="bg-neutral-900" />
+        <div className="flex gap-5">
+          <InputBox
+            type="date"
+            placeholder="mm/dd/yyyy"
+            title="Date"
+            backgroundColor="bg-neutral-900"
+            name="date"
+          />
+          <InputBox
+            type="time"
+            placeholder="00:00:00"
+            title="Time"
+            backgroundColor="bg-neutral-900"
+            name="time"
+          />
         </div>
         <InputBox
-          name="text"
+          type="text"
           title="Category"
           placeholder="Different"
           backgroundColor="bg-neutral-900"
+          name="category"
         />
-        <InputBox name="number" title="Sum" backgroundColor="bg-neutral-900" />
+        <CurrencyInputBox />
         <label htmlFor="" className="flex-1">
-          <p>Comment</p>
+          <p className="pb-3">Comment</p>
           <textarea
             placeholder="Enter the text"
             className="bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full"
             rows="3"
+            name="comment"
           />
         </label>
+        <div className="flex items-start">
+          <PrimaryButton title="Add" />
+        </div>
       </div>
     </form>
   );
