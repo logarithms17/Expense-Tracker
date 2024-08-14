@@ -46,7 +46,7 @@ const SignIn = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-5 items-start pt-12">
+          <div className="flex flex-col gap-5 items-start pt-[139px]">
             <PrimaryButton title="Sign In" />
             <p className="text-neutral-400">
               Already have account?{" "}

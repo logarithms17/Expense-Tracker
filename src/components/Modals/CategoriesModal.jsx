@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryList from "./CategoryList";
+import CategoryList from "./CategoryListModal";
 import InputBox from "../InputBox/InputBox";
 
 const CategoriesModal = () => {
@@ -13,9 +13,9 @@ const CategoriesModal = () => {
           <CategoryList />
           <div className="mt-3">
             <p>New Category</p>
-            <div className="flex mt-4 relative">
+            <div className="flex mt-4 relative items-center">
               <InputBox title="" backgroundColor="bg-neutral-900" />
-              <div className="absolute top-0 right-0">
+              <div className="absolute top-[1px] right-0">
                 <button className="bg-green-400 text-black py-3 px-10 rounded-xl font-medium hover:bg-green-300">
                   Add
                 </button>

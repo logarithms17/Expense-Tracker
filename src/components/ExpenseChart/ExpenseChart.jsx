@@ -61,7 +61,7 @@ const ExpenseChart = () => {
         100%
       </div>
       <div
-        className=" overflow-hidden hover:overflow-y-auto h-[126px] bg-neutral-900 w-[191px] absolute top-[100px] right-[36px]"
+        className="h-[126px] bg-neutral-900 w-[191px] absolute top-[100px] right-[36px]"
         style={{ backgroundColor: "#1E1E1E" }}
       >
         <CategoriesList data={data} colors={COLORS} />

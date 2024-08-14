@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const CategoriesList = ({ data }) => {
   return (
-    <ul className="flex flex-col gap-[10px]">
+    <ul className="flex flex-col gap-[10px] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 overflow-y-scroll">
       {data.map(({ name, value, color }, index) => (
         <li
           key={index}
@@ -18,7 +18,7 @@ const CategoriesList = ({ data }) => {
             ></div>
             <p className="description">{name}</p>
           </div>
-          <p className="text-white font-semibold">{value}%</p>
+          <p className="text-white font-semibold mr-2">{value}%</p>
         </li>
       ))}
     </ul>

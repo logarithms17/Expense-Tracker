@@ -8,7 +8,7 @@ const CategoryList = () => {
   const initialCategory = ["Cinema", "Products", "Clothes", "Education"];
 
   return (
-    <ul className="flex flex-col gap-2 hover:overflow-y-scroll">
+    <ul className="flex flex-col gap-2 scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-900 overflow-y-scroll scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl">
       {initialCategory.map((category) => (
         <li key={category} className="py-2 text-lg flex justify-between">
           {category}
