@@ -17,4 +17,7 @@
     @apply text-neutral-500
   }
 
+  .profileSettingsCurrencyBox{
+    @apply h-full py-3 rounded-xl w-full 
+  }
 }

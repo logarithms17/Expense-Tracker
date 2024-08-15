@@ -37,6 +37,7 @@ const TransactionForm = () => {
             title="Date"
             backgroundColor="bg-neutral-900"
             name="date"
+            textColor="text-neutral-500"
           />
           <InputBox
             type="time"
@@ -44,6 +45,7 @@ const TransactionForm = () => {
             title="Time"
             backgroundColor="bg-neutral-900"
             name="time"
+            textColor="text-neutral-500"
           />
         </div>
         <InputBox
@@ -52,6 +54,7 @@ const TransactionForm = () => {
           placeholder="Different"
           backgroundColor="bg-neutral-900"
           name="category"
+          textColor="text-neutral-500"
         />
         <CurrencyInputBox />
         <label htmlFor="" className="flex-1">
@@ -61,6 +64,7 @@ const TransactionForm = () => {
             className="bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full"
             rows="3"
             name="comment"
+            textColor="text-neutral-500"
           />
         </label>
         <div className="flex items-start">

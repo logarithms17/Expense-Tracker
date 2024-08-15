@@ -1,14 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const InputBox = ({ type, placeholder, title, backgroundColor, name }) => {
+const InputBox = ({
+  type,
+  placeholder,
+  title,
+  backgroundColor,
+  name,
+  textColor,
+}) => {
   return (
     <label htmlFor={name} className="flex-1">
       <p className={title === "" ? "pb-0" : "pb-3"}>{title}</p>
       <input
         type={type}
         placeholder={placeholder}
-        className={`${backgroundColor} border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full text-neutral-500`}
+        className={`${backgroundColor} border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 ${textColor} w-full`}
         name={name}
         id={name}
       />
@@ -24,4 +31,5 @@ InputBox.propTypes = {
   title: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
 };

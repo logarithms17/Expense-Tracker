@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import userIcon from "../../assets/ph_user-bold.svg";
 import SettingsButton from "../Buttons/SettingsButton";
 import InputBox from "../InputBox/InputBox";
-import CurrencyInputBox from "../InputBox/CurrencyInputBox";
+import CurrencyDropDown from "../InputBox/CurrencyDropDown";
 
 const UserSetsModal = ({ title }) => {
   return (
@@ -18,16 +20,27 @@ const UserSetsModal = ({ title }) => {
             <SettingsButton title="Upload new photo" />
             <SettingsButton title="Remove" />
           </div>
-          <div>
-            <CurrencyInputBox />
-            <InputBox
-              type="date"
-              placeholder="mm/dd/yyyy"
-              title="Date"
-              backgroundColor="bg-neutral-900"
-              name="date"
-            />
+          <div className="grid grid-cols-6 items-center w-full mt-4 gap-2 text-white">
+            <div className="col-span-2 relative">
+              <CurrencyDropDown
+                display="block"
+                border="border-2 border-neutral-500"
+                extraData="profileSettingsCurrencyBox"
+              />
+            </div>
+            <div className="col-span-4">
+              <InputBox
+                type="name"
+                title=""
+                placeholder=""
+                backgroundColor="bg-neutral-900"
+                name="name"
+              />
+            </div>
           </div>
+          <button className="w-full my-3 bg-green-400 text-black py-3 px-10 rounded-3xl font-medium hover:bg-green-300">
+            Save
+          </button>
         </div>
       </div>
     </>
@@ -35,3 +48,7 @@ const UserSetsModal = ({ title }) => {
 };
 
 export default UserSetsModal;
+
+UserSetsModal.propTypes = {
+  title: PropTypes.string.isRequired,
+};

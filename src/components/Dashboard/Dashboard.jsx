@@ -12,7 +12,7 @@ const Dashboard = () => {
     <main className="flex gap-10">
       {/* <CategoriesModal title="Expenses" /> */}
       {/* <CategoriesModal title="Incomes" /> */}
-      {/* <UserSetsModal title="Profile Settings" /> */}
+      <UserSetsModal title="Profile Settings" />
 
       <section>
         <h1 className="mt-[59px]">Expense Log</h1>

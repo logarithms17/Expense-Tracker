@@ -11,8 +11,14 @@ const CurrencyInputBox = () => {
           className="p-2 flex-grow outline-none bg-neutral-900 placeholder:text-neutral-500 text-neutral-500 border border-neutral-500 rounded-lg"
           name="sum"
         />
+        <CurrencyDropDown
+          display="absolute"
+          border=""
+          extraData=""
+          icon=""
+          textColor="text-neutral-500"
+        />
       </label>
-      <CurrencyDropDown />
     </div>
   );
 };

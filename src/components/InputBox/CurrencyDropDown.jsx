@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 
-const CurrencyDropDown = () => {
+const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
   const [currency, setCurrency] = useState("UAH");
 
   return (
     <select
       value={currency}
       onChange={(e) => setCurrency(e.target.value)}
-      className=" bg-neutral-900  text-neutral-500  outline-none absolute bottom-[10px] right-2 px-2"
+      className={` bg-neutral-900 ${textColor} outline-none ${display} ${border} bottom-[10px] right-2 px-2 ${extraData}`}
       name="currency"
     >
       <option value="UAH">UAH</option>
@@ -18,3 +19,10 @@ const CurrencyDropDown = () => {
 };
 
 export default CurrencyDropDown;
+
+CurrencyDropDown.propTypes = {
+  display: PropTypes.string.isRequired,
+  border: PropTypes.string.isRequired,
+  extraData: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+};
