@@ -8,10 +8,9 @@ const HeroImage = () => {
     <section className="relative flex justify-center items-center">
       <FinanceWidget
         title="Your balance"
-        backgroundColor="bg-white"
-        textColor="text-black"
         percentage="+1.29%"
-        display="absolute"
+        styles="heroImageWidget"
+        textColor="text-black"
         src={arrowIcon}
       />
       <img src={image} alt="couple-happy" />

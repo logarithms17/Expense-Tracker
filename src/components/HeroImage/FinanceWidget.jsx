@@ -1,17 +1,8 @@
 import PropTypes from "prop-types";
 
-const FinanceWidget = ({
-  title,
-  backgroundColor,
-  textColor,
-  percentage,
-  display,
-  src,
-}) => {
+const FinanceWidget = ({ title, styles, percentage, textColor, src }) => {
   return (
-    <div
-      className={`${display} bottom-[130px] -left-16 ${backgroundColor} rounded-3xl flex  items-center p-7`}
-    >
+    <div className={styles}>
       <img
         src={src}
         alt="arrow-icon"
@@ -34,9 +25,7 @@ export default FinanceWidget;
 
 FinanceWidget.propTypes = {
   title: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  textColor: PropTypes.string.isRequired,
   percentage: PropTypes.string.isRequired,
-  display: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
+  styles: PropTypes.string.isRequired,
 };

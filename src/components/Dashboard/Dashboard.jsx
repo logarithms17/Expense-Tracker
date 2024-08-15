@@ -10,11 +10,11 @@ import LogoutModal from "../Modals/LogoutModal";
 
 const Dashboard = () => {
   return (
-    <main className="flex gap-10">
+    <main className="flex gap-9">
       {/* <CategoriesModal title="Expenses" />
       <CategoriesModal title="Incomes" /> */}
       {/* <UserSetsModal title="Profile Settings" /> */}
-      <LogoutModal />
+      {/* <LogoutModal /> */}
 
       <section>
         <h1 className="mt-[59px]">Expense Log</h1>
@@ -25,19 +25,15 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-6 my-8">
           <FinanceWidget
             title="Total Income"
-            backgroundColor="bg-neutral-900"
             src={arrowIcon}
-            textColor="text-white"
             percentage=""
-            display="block"
+            styles="dashboardWidget"
           />
           <FinanceWidget
             title="Total Expense"
-            backgroundColor="bg-neutral-900"
             src={arrowDownIcon}
-            textColor="text-white"
             percentage=""
-            display="block"
+            styles="dashboardWidget"
           />
         </div>
 
