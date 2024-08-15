@@ -6,11 +6,9 @@ import CloseButton from "../Buttons/CloseButton";
 import PropTypes from "prop-types";
 
 const CategoriesModal = ({ title }) => {
-  const [display, setDisplay] = useState("hidden");
+  const [display, setDisplay] = useState("");
 
-  const handleClick = () => {
-    
-  };
+  const handleClick = () => {};
 
   return (
     <>

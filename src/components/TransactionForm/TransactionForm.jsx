@@ -61,10 +61,9 @@ const TransactionForm = () => {
           <p className="pb-3">Comment</p>
           <textarea
             placeholder="Enter the text"
-            className="bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full"
+            className="bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 w-full text-neutral-500"
             rows="3"
             name="comment"
-            textColor="text-neutral-500"
           />
         </label>
         <div className="flex items-start">

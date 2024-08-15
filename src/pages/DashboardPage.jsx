@@ -10,8 +10,14 @@ const DashboardPage = () => {
       <div className="flex justify-between border-b-[1px] border-neutral-600 pb-6 relative">
         <InitialHeader />
         <div className="flex gap-6">
-          <SecondaryButton title="All Expense" />
-          <SecondaryButton title="All Income" />
+          <SecondaryButton
+            title="All Expense"
+            styles="dashboardSecondaryButton"
+          />
+          <SecondaryButton
+            title="All Income"
+            styles="dashboardSecondaryButton"
+          />
         </div>
         <DropdownButton />
       </div>

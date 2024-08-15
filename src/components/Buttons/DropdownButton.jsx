@@ -24,13 +24,10 @@ export default function DropdownButton() {
       >
         <div className="">
           <MenuItem>
-            <a
-              href="/profile-settings"
-              className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl gap-2"
-            >
+            <button className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl gap-2 w-full">
               <FiUser />
               Profile Settings
-            </a>
+            </button>
           </MenuItem>
 
           <form action="#" method="POST">

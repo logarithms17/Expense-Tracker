@@ -34,7 +34,7 @@ const Home = () => {
               <PrimaryButton title="Sign Up" />
             </Link>
             <Link to="/signin">
-              <SecondaryButton title="Sign in" />
+              <SecondaryButton title="Sign in" styles="secondaryButton" />
             </Link>
           </div>
         </div>
