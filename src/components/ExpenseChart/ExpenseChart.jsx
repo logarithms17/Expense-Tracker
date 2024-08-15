@@ -51,7 +51,7 @@ const ExpenseChart = () => {
         </PieChart>
       </ResponsiveContainer>
       <div
-        className="absolute top-[243px] left-[171px]"
+        className="absolute top-[243px] left-[164px]"
         style={{
           color: "white",
           fontSize: "24px",

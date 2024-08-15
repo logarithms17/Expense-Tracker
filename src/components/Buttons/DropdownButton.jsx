@@ -26,7 +26,7 @@ export default function DropdownButton() {
           <MenuItem>
             <a
               href="/profile-settings"
-              className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl"
+              className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl gap-2"
             >
               <FiUser />
               Profile Settings
@@ -37,7 +37,7 @@ export default function DropdownButton() {
             <MenuItem>
               <button
                 type="submit"
-                className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl"
+                className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl gap-2"
               >
                 <FiLogOut />
                 Log out

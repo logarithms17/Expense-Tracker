@@ -5,11 +5,15 @@ import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 import ExpenseChart from "../ExpenseChart/ExpenseChart";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import CategoriesModal from "../Modals/CategoriesModal";
+import UserSetsModal from "../Modals/UserSetsModal";
 
 const Dashboard = () => {
   return (
     <main className="flex gap-10">
-      <CategoriesModal />
+      {/* <CategoriesModal title="Expenses" /> */}
+      {/* <CategoriesModal title="Incomes" /> */}
+      {/* <UserSetsModal title="Profile Settings" /> */}
+
       <section>
         <h1 className="mt-[59px]">Expense Log</h1>
         <p className="description mt-5">

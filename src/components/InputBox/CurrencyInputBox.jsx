@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import CurrencyDropDown from "./CurrencyDropDown";
 
 const CurrencyInputBox = () => {
-  const [currency, setCurrency] = useState("UAH");
-
   return (
     <div className="flex items-end justify-between overflow-hidden relative">
       <label htmlFor="" className="flex flex-col gap-3 flex-1">
@@ -14,17 +12,7 @@ const CurrencyInputBox = () => {
           name="sum"
         />
       </label>
-
-      <select
-        value={currency}
-        onChange={(e) => setCurrency(e.target.value)}
-        className=" bg-neutral-900  text-neutral-500  outline-none absolute bottom-[10px] right-2"
-        name="currency"
-      >
-        <option value="UAH">UAH</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-      </select>
+      <CurrencyDropDown />
     </div>
   );
 };
