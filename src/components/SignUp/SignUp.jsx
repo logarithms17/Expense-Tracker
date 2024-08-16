@@ -4,13 +4,28 @@ import InputBox from "../InputBox/InputBox";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/authOperations";
+
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    console.log(formData.get("email"));
-    console.log(formData.get("password"));
-    console.log(formData.get("name"));
+
+    const form = e.currentTarget;
+
+    const formData = new FormData(form);
+
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log(name, email, password);
+
+    dispatch(register({ name, email, password }));
+
+    form.reset();
   };
 
   return (
@@ -36,6 +51,7 @@ const SignUp = () => {
               backgroundColor="bg-black"
               name="name"
               title=""
+              textColor="text-white"
             />
             <InputBox
               type="email"
@@ -43,6 +59,7 @@ const SignUp = () => {
               backgroundColor="bg-black"
               name="email"
               title=""
+              textColor="text-white"
             />
             <InputBox
               type="password"
@@ -50,11 +67,12 @@ const SignUp = () => {
               backgroundColor="bg-black"
               name="password"
               title=""
+              textColor="text-white"
             />
           </div>
 
           <div className="flex flex-col gap-5 items-start">
-            <PrimaryButton title="Sign Up" />
+            <PrimaryButton title="Sign Up" icon="" />
             <p className="text-neutral-400">
               Already have account?{" "}
               <span className="text-neutral-200 underline underline-offset-4">

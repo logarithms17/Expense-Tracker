@@ -4,13 +4,27 @@ import InputBox from "../InputBox/InputBox";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { logIn } from "../../redux/authOperations";
+
 const SignIn = () => {
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    console.log(formData.get("email"));
-    console.log(formData.get("password"));
+    const form = e.currentTarget;
+
+    const formData = new FormData(form);
+
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log(email, password);
+
+    dispatch(logIn({ email, password }));
+
+    form.reset();
   };
 
   return (
@@ -36,6 +50,7 @@ const SignIn = () => {
               backgroundColor="bg-black"
               name="email"
               title=""
+              textColor="text-white"
             />
             <InputBox
               type="password"
@@ -43,11 +58,12 @@ const SignIn = () => {
               backgroundColor="bg-black"
               name="password"
               title=""
+              textColor="text-white"
             />
           </div>
 
           <div className="flex flex-col gap-5 items-start pt-[139px]">
-            <PrimaryButton title="Sign In" />
+            <PrimaryButton title="Sign In" icon="" />
             <p className="text-neutral-400">
               Already have account?{" "}
               <span className="text-neutral-200 underline underline-offset-4">
