@@ -12,7 +12,7 @@ const AllExpensePage = () => {
       return <AllExpenseTab title="All Expense" />;
     }
     if (pathname === "/all-income") {
-      return <AllIncomeTab />;
+      return <AllIncomeTab title="All Income" />;
     }
   };
 

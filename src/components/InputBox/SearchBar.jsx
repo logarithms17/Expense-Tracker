@@ -1,11 +1,9 @@
 import React from "react";
 import searchIcon from "../../assets/search.svg";
 
-import Table from "../Table/ExpenseTable";
-
 const SearchBar = () => {
   return (
-    <div className=" bg-neutral-900 py-5 rounded-3xl my-10">
+    <div className=" ">
       <div className="flex gap-5 items-center px-10">
         <label htmlFor="search" className="relative">
           <img
@@ -43,7 +41,6 @@ const SearchBar = () => {
           </svg>
         </label>
       </div>
-      <Table />
     </div>
   );
 };
