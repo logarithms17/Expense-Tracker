@@ -28,4 +28,5 @@ FinanceWidget.propTypes = {
   percentage: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   styles: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
 };

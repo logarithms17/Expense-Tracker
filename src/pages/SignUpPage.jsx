@@ -1,4 +1,4 @@
-import InitialHeader from "../components/Header/InitialHeader";
+import InitialHeader from "../components/Header/Logo";
 import SignUp from "../components/SignUp/SignUp";
 
 const SignUpPage = () => {

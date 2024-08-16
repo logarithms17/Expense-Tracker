@@ -34,6 +34,10 @@
     @apply bg-neutral-800 text-white py-3 px-10 rounded-3xl font-normal hover:bg-neutral-700
   }
 
+     .tableSecondaryButton {
+       @apply bg-neutral-950 flex gap-3 items-center text-white py-3 px-10 rounded-3xl font-normal hover:bg-neutral-800
+     }
+
   /* ---- WIDGET ---- */
   
   .heroImageWidget {

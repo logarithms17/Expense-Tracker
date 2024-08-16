@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/Icon.svg";
 
-const InitialHeader = () => {
+const Logo = () => {
   return (
     <Link to="/dashboard">
       <div className="flex justify-center items-center h-full">
@@ -12,4 +12,4 @@ const InitialHeader = () => {
   );
 };
 
-export default InitialHeader;
+export default Logo;

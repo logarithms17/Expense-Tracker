@@ -1,5 +1,5 @@
 import React from "react";
-import InitialHeader from "../components/Header/InitialHeader";
+import InitialHeader from "../components/Header/Logo";
 import SignIn from "../components/SignIn/SignIn";
 
 const SignInPage = () => {
