@@ -18,16 +18,12 @@ const authSlice = createSlice({
                 state.user = action.payload.user;
                 state.token = action.payload.accessToken;
                 state.isLoggedIn = true;
-                console.log(action.payload)
-                console.log(action.payload.accessToken)
                 localStorage.setItem("authToken", action.payload.accessToken)
             })
             .addCase(logIn.fulfilled, (state, action) => {
                 state.user = action.payload.user;
                 state.token = action.payload.token;
                 state.isLoggedIn = true;
-                console.log(action.payload)
-                console.log(action.payload.accessToken)
                 localStorage.setItem("authToken", action.payload.accessToken)
             })
             .addCase(logOut.fulfilled, (state) => {
