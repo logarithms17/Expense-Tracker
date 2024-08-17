@@ -13,12 +13,14 @@ const MainHeader = () => {
           <SecondaryButton
             title="All Expense"
             styles="dashboardSecondaryButton"
+            icon=""
           />
         </NavLink>
         <NavLink to="/all-income">
           <SecondaryButton
             title="All Income"
             styles="dashboardSecondaryButton"
+            icon=""
           />
         </NavLink>
       </div>

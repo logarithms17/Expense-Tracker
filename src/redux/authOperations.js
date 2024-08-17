@@ -52,27 +52,51 @@ export const logOut = createAsyncThunk(
     }
 )
 
-export const refreshUser = createAsyncThunk(
-    "auth/refresh",
-    async (_, thunkAPI) => {
-        const state = thunkAPI.getState()
-        const persistedToken = state.auth.token
+// export const refreshToken = createAsyncThunk(
+//     "auth/refreshToken",
+//     async (_, thunkAPI) => {
+//         const state = thunkAPI.getState();
+//         const refreshToken = state.auth.token;  // Assuming the refreshToken is stored here
 
-        if (persistedToken === null) {
-            return thunkAPI.rejectWithValue("Unable to fetch user")
+//         console.log(refreshToken)
+//         if (!refreshToken) {
+//             return thunkAPI.rejectWithValue("No refresh token available.");
+//         }
+
+//         try {
+//             const response = await axios.post("/auth/refresh", {
+//                 token: refreshToken,
+//             });
+//             setAuthHeader(response.data.accessToken);
+//             console.log("Token refreshed successfully: ", response.data);
+//             return response.data;
+//         } catch (error) {
+//             console.log("Error occurred during token refresh: ", error.response?.data || error.message);
+//             return thunkAPI.rejectWithValue(error.response?.data || error.message);
+//         }
+//     }
+// );
+
+export const refreshUser = createAsyncThunk(
+    "auth/refreshUser",
+    async (_, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const accessToken = state.auth.token;
+
+        if (!accessToken) {
+            return thunkAPI.rejectWithValue("No access token available.");
         }
 
-        setAuthHeader(persistedToken)
+        console.log(accessToken)
+        setAuthHeader(accessToken);
 
         try {
-            const response = await axios.get("/auth/current", {
-                headers: {
-                    Authorization: `Bearer ${persistedToken}`,
-                },
-            })
-            return response.data
+            const response = await axios.get("/users/current");
+            console.log("User data refreshed successfully: ", response.data);
+            return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message)
+            console.log("Error occurred during refreshUser API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
         }
     }
-)
+);

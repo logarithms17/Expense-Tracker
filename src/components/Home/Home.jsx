@@ -31,10 +31,14 @@ const Home = () => {
           </p>
           <div className="flex gap-6">
             <Link to="/signup">
-              <PrimaryButton title="Sign Up" />
+              <PrimaryButton title="Sign Up" icon="" />
             </Link>
             <Link to="/signin">
-              <SecondaryButton title="Sign in" styles="secondaryButton" />
+              <SecondaryButton
+                title="Sign in"
+                styles="secondaryButton"
+                icon=""
+              />
             </Link>
           </div>
         </div>

@@ -28,12 +28,14 @@ const Dashboard = () => {
             src={arrowIcon}
             percentage=""
             styles="dashboardWidget"
+            textColor="text-white"
           />
           <FinanceWidget
             title="Total Expense"
             src={arrowDownIcon}
             percentage=""
             styles="dashboardWidget"
+            textColor="text-white"
           />
         </div>
 

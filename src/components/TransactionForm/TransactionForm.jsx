@@ -67,7 +67,7 @@ const TransactionForm = () => {
           />
         </label>
         <div className="flex items-start">
-          <PrimaryButton title="Add" />
+          <PrimaryButton title="Add" icon="" />
         </div>
       </div>
     </form>
