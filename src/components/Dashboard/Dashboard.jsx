@@ -8,6 +8,8 @@ import CategoriesModal from "../Modals/CategoriesModal";
 import UserSetsModal from "../Modals/UserSetsModal";
 import LogoutModal from "../Modals/LogoutModal";
 
+import { useSelector, useDispatch } from "react-redux";
+
 const Dashboard = () => {
   return (
     <main className="flex gap-9">

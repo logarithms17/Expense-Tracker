@@ -11,9 +11,9 @@ const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
       className={` bg-neutral-900 ${textColor} outline-none ${display} ${border} bottom-[10px] right-2 px-2 ${extraData}`}
       name="currency"
     >
-      <option value="UAH">UAH</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
+      <option value="uah">UAH</option>
+      <option value="usd">USD</option>
+      <option value="eur">EUR</option>
     </select>
   );
 };

@@ -2,15 +2,26 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FiUser, FiLogOut } from "react-icons/fi";
 
-import image from "../../assets/neil-bryan-apostol.png";
+import { logOut } from "../../redux/authOperations";
+
+import { useSelector, useDispatch } from "react-redux";
 
 export default function DropdownButton() {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user.name);
+  const avatar = useSelector((state) => state.auth.user.avatarUrl);
+
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="flex items-center w-full justify-center gap-x-1.5  bg-neutral-900 px-3 py-2 text-sm font-semibold text-neutral-500 shadow-sm ring-inset border-none hover:bg-slate-800 rounded-3xl">
-          <img src={image} alt="" className="w-8 h-8 rounded-2xl mx-1" />
-          Neil Bryan Apostol
+          <img src={avatar} alt="" className="w-8 h-8 rounded-2xl mx-1" />
+          {user}
           <ChevronDownIcon
             aria-hidden="true"
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -30,17 +41,16 @@ export default function DropdownButton() {
             </button>
           </MenuItem>
 
-          <form action="#" method="POST">
-            <MenuItem>
-              <button
-                type="submit"
-                className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl gap-2"
-              >
-                <FiLogOut />
-                Log out
-              </button>
-            </MenuItem>
-          </form>
+          <MenuItem>
+            <button
+              type="submit"
+              className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl gap-2"
+              onClick={handleLogout}
+            >
+              <FiLogOut />
+              Log out
+            </button>
+          </MenuItem>
         </div>
       </MenuItems>
     </Menu>

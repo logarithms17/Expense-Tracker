@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { refreshUser } from "./redux/authOperations";
 
 import RestrictedRoute from "./components/Routes/RestrictedRoute";
+import { PrivateRoute } from "./components/Routes/PrivateRoute";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,9 +44,18 @@ const App = () => {
             <RestrictedRoute redirectTo="/dashboard" component={SignInPage} />
           }
         />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/all-expense" element={<AllExpensePage />} />
-        <Route path="/all-income" element={<AllExpensePage />} />
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute redirectTo="/" component={DashboardPage} />}
+        />
+        <Route
+          path="/all-expense"
+          element={<PrivateRoute redirectTo="/" component={AllExpensePage} />}
+        />
+        <Route
+          path="/all-income"
+          element={<PrivateRoute redirectTo="/" component={AllExpensePage} />}
+        />
       </Routes>
     </div>
   );

@@ -43,39 +43,28 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk(
     "auth/logout",
     async (_, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        console.log(token)
         try {
-            await axios.post("/auth/logout")
-            clearAuthHeader()
+            if (!token) {
+                return thunkAPI.rejectWithValue("No access token available.");
+            }
+
+            setAuthHeader(token);
+
+            await axios.get("/auth/logout");
+
+            clearAuthHeader();
+            return { message: "Logged out successfully" };
         } catch (error) {
+            console.log("Error occurred during logOut API call: ", error.response?.data || error.message);
             return thunkAPI.rejectWithValue(error.message)
         }
-    }
+            }
 )
 
-// export const refreshToken = createAsyncThunk(
-//     "auth/refreshToken",
-//     async (_, thunkAPI) => {
-//         const state = thunkAPI.getState();
-//         const refreshToken = state.auth.token;  // Assuming the refreshToken is stored here
-
-//         console.log(refreshToken)
-//         if (!refreshToken) {
-//             return thunkAPI.rejectWithValue("No refresh token available.");
-//         }
-
-//         try {
-//             const response = await axios.post("/auth/refresh", {
-//                 token: refreshToken,
-//             });
-//             setAuthHeader(response.data.accessToken);
-//             console.log("Token refreshed successfully: ", response.data);
-//             return response.data;
-//         } catch (error) {
-//             console.log("Error occurred during token refresh: ", error.response?.data || error.message);
-//             return thunkAPI.rejectWithValue(error.response?.data || error.message);
-//         }
-//     }
-// );
 
 export const refreshUser = createAsyncThunk(
     "auth/refreshUser",
@@ -96,6 +85,53 @@ export const refreshUser = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log("Error occurred during refreshUser API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
+
+// UPDATING AVATAR INFO
+
+export const updateAvatar = createAsyncThunk(
+    "auth/updateAvatar",
+    async (avatar, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+            const response = await axios.patch("/users/avatar", avatar);
+            console.log("Avatar updated successfully: ", response.data);
+            return response.data;
+        } catch (error) {
+            console.log("Error occurred during updateAvatar API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
+
+// UPDATING USERS INFO
+
+export const updateUser = createAsyncThunk(
+    "auth/updateUser",
+    async (user, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+        console.log(user)
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+            const response = await axios.patch("/users/info", user);
+            console.log("User updated successfully: ", response.data);
+            return response.data;
+        } catch (error) {
+            console.log("Error occurred during updateUser API call: ", error.response?.data || error.message);
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
         }
     }

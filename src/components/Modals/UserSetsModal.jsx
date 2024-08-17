@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import userIcon from "../../assets/ph_user-bold.svg";
+// import userIcon from "../../assets/ph_user-bold.svg";
 import SettingsButton from "../Buttons/SettingsButton";
-import InputBox from "../InputBox/InputBox";
+// import InputBox from "../InputBox/InputBox";
 import CurrencyDropDown from "../InputBox/CurrencyDropDown";
 
+import { useDispatch, useSelector } from "react-redux";
+import { updateAvatar, updateUser } from "../../redux/authOperations";
+
 const UserSetsModal = ({ title }) => {
+  const userName = useSelector((state) => state.auth.user.name);
+  const userCurrency = useSelector((state) => state.auth.user.currency);
+  const userAvatar = useSelector((state) => state.auth.user.avatarUrl);
+  console.log(userName);
+
+  const [newName, setNewName] = useState(userName);
+  const dispatch = useDispatch();
+
+  const handleAvatarUpload = (file) => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+    dispatch(updateAvatar(formData));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const name = formData.get("name");
+    const currency = formData.get("currency");
+    dispatch(updateUser({ name, currency }));
+  };
+
   return (
     <>
       <div className="fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden"></div>
@@ -14,33 +40,63 @@ const UserSetsModal = ({ title }) => {
         <p className="text-2xl pt-3">{title}</p>
         <div className="flex flex-col items-center pt-10">
           <div className="h-[100px] w-[100px] bg-neutral-950 flex items-center justify-center rounded-full">
-            <img src={userIcon} alt="user-icon" className=" " />
+            <img
+              src={userAvatar}
+              alt="user-icon"
+              className="h-full w-full rounded-full object-cover"
+            />
           </div>
           <div className="flex gap-3 pt-7">
-            <SettingsButton title="Upload new photo" />
+            <label
+              htmlFor="avatarUpload"
+              className="flex items-center bg-neutral-800 py-2 px-5 rounded-3xl"
+              style={{ cursor: "pointer" }}
+            >
+              <p>Upload new photo</p>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                className=""
+                id="avatarUpload"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                  return handleAvatarUpload(e.target.files[0]);
+                }}
+              />
+            </label>
             <SettingsButton title="Remove" />
           </div>
-          <div className="grid grid-cols-6 items-center w-full mt-4 gap-2 text-white">
-            <div className="col-span-2 relative">
-              <CurrencyDropDown
-                display="block"
-                border="border-2 border-neutral-500"
-                extraData="profileSettingsCurrencyBox"
-              />
+          <form action="" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-6 items-center w-full mt-4 gap-2 text-white">
+              <div className="col-span-2 relative">
+                <CurrencyDropDown
+                  display="block"
+                  border="border-2 border-neutral-500"
+                  extraData="profileSettingsCurrencyBox"
+                  textColor="text-white"
+                />
+              </div>
+              <div className="col-span-4">
+                <label htmlFor="name" className="flex-1">
+                  <input
+                    type="name"
+                    className={`bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 text-white w-full`}
+                    name="name"
+                    id="name"
+                    value={newName}
+                    placeholder="Name"
+                    required
+                    onChange={(e) => {
+                      setNewName(e.target.value);
+                    }}
+                  />
+                </label>
+              </div>
             </div>
-            <div className="col-span-4">
-              <InputBox
-                type="name"
-                title=""
-                placeholder=""
-                backgroundColor="bg-neutral-900"
-                name="name"
-              />
-            </div>
-          </div>
-          <button className="w-full my-3 bg-green-400 text-black py-3 px-10 rounded-3xl font-medium hover:bg-green-300">
-            Save
-          </button>
+            <button className="w-full my-3 bg-green-400 text-black py-3 px-10 rounded-3xl font-medium hover:bg-green-300">
+              Save
+            </button>
+          </form>
         </div>
       </div>
     </>
