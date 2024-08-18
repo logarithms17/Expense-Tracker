@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Notify } from "notiflix";
 
-// import userIcon from "../../assets/ph_user-bold.svg";
 import SettingsButton from "../Buttons/SettingsButton";
-// import InputBox from "../InputBox/InputBox";
+
 import CurrencyDropDown from "../InputBox/CurrencyDropDown";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateAvatar, updateUser } from "../../redux/authOperations";
+import CloseButton from "../Buttons/CloseButton";
 
-const UserSetsModal = ({ title }) => {
+const UserSetsModal = ({ title, toggleModal }) => {
   const userName = useSelector((state) => state.auth.user.name);
   const userCurrency = useSelector((state) => state.auth.user.currency);
   const userAvatar = useSelector((state) => state.auth.user.avatarUrl);
@@ -37,6 +38,7 @@ const UserSetsModal = ({ title }) => {
     <>
       <div className="fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden"></div>
       <div className="w-[500px] h-[461px] bg-neutral-900 opacity-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-3xl px-10 py-8">
+        <CloseButton toggleModal={toggleModal} />
         <p className="text-2xl pt-3">{title}</p>
         <div className="flex flex-col items-center pt-10">
           <div className="h-[100px] w-[100px] bg-neutral-950 flex items-center justify-center rounded-full">

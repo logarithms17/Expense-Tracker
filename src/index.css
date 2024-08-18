@@ -47,4 +47,8 @@
   .dashboardWidget {
     @apply -left-16 bg-neutral-900 rounded-3xl flex items-center p-7
   }
+
+    .custom-input-icon {
+      @apply [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:sepia [&::-webkit-calendar-picker-indicator]:saturate-0 [&::-webkit-calendar-picker-indicator]:hue-rotate-[180deg] [&::-webkit-calendar-picker-indicator]:brightness-100 [&::-webkit-calendar-picker-indicator]:contrast-100;
+    }
 }

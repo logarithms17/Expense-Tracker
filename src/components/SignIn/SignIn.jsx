@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/authOperations";
+import { Notify } from "notiflix";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -20,9 +21,16 @@ const SignIn = () => {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log(email, password);
-
     dispatch(logIn({ email, password }));
+
+    if (!email || !password) {
+      Notify.failure("Please fill in all the fields!");
+      return;
+    }
+
+    if (email && password) {
+      Notify.success("You have successfully logged in!");
+    }
 
     form.reset();
   };

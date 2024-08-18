@@ -3,6 +3,8 @@ import InputBox from "../InputBox/InputBox";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import CurrencyInputBox from "../InputBox/CurrencyInputBox";
 import RadioInput from "../InputBox/RadioInput";
+import TimeInput from "../InputBox/TimeInput";
+import DateInput from "../InputBox/DateInput";
 
 const TransactionForm = () => {
   const handleSubmit = (e) => {
@@ -11,6 +13,8 @@ const TransactionForm = () => {
     const formData = new FormData(e.target);
 
     console.log(formData);
+
+    console.log(formData.get("transaction-type"));
 
     console.log(formData.get("date"));
     console.log(formData.get("time"));
@@ -21,32 +25,29 @@ const TransactionForm = () => {
     console.log(formData.get("type"));
 
     console.log(formData.get("email"));
+    console.log(formData.get("password"));
   };
   return (
     <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <div className="flex items-center gap-5">
-        <RadioInput title="Expense" />
-        <RadioInput title="Income" />
+        <RadioInput
+          title="Expense"
+          name="transaction-type"
+          id="expense"
+          value="expense"
+        />
+        <RadioInput
+          title="Income"
+          name="transaction-type"
+          id="income"
+          value="income"
+        />
       </div>
 
       <div className="flex flex-col gap-5">
         <div className="flex gap-5">
-          <InputBox
-            type="date"
-            placeholder="mm/dd/yyyy"
-            title="Date"
-            backgroundColor="bg-neutral-900"
-            name="date"
-            textColor="text-neutral-500"
-          />
-          <InputBox
-            type="time"
-            placeholder="00:00:00"
-            title="Time"
-            backgroundColor="bg-neutral-900"
-            name="time"
-            textColor="text-neutral-500"
-          />
+          <DateInput />
+          <TimeInput />
         </div>
         <InputBox
           type="text"

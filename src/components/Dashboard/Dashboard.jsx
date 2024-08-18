@@ -10,12 +10,19 @@ import LogoutModal from "../Modals/LogoutModal";
 
 import { useSelector, useDispatch } from "react-redux";
 
-const Dashboard = () => {
+import UseToggle from "../../Hook/UseToggle";
+import { useEffect } from "react";
+
+const Dashboard = ({ showModal, toggleModal }) => {
+  const dispatch = useDispatch();
+
   return (
     <main className="flex gap-9">
       {/* <CategoriesModal title="Expenses" />
       <CategoriesModal title="Incomes" /> */}
-      {/* <UserSetsModal title="Profile Settings" /> */}
+      {showModal && (
+        <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
+      )}
       {/* <LogoutModal /> */}
 
       <section>

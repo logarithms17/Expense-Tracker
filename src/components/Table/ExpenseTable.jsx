@@ -29,11 +29,10 @@ const Table = ({ data }) => {
               <td className="px-10 py-[15px]">{item.sum}</td>
               <td className="px-10 py-[15px] flex gap-3">
                 <ButtonWithIcon title="Edit" icon={edit} />
-                <SecondaryButton
-                  title="Delete"
-                  styles="tableSecondaryButton"
-                  icon={<RiDeleteBin6Line />}
-                />
+                <button className="tableSecondaryButton">
+                  <RiDeleteBin6Line />
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

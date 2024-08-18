@@ -3,10 +3,11 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FiUser, FiLogOut } from "react-icons/fi";
 
 import { logOut } from "../../redux/authOperations";
+import { Notify } from "notiflix";
 
 import { useSelector, useDispatch } from "react-redux";
 
-export default function DropdownButton() {
+export default function DropdownButton({ toggleModal }) {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user.name);
@@ -14,6 +15,7 @@ export default function DropdownButton() {
 
   const handleLogout = () => {
     dispatch(logOut());
+    Notify.success("Goodbye!");
   };
 
   return (
@@ -35,7 +37,10 @@ export default function DropdownButton() {
       >
         <div className="">
           <MenuItem>
-            <button className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl gap-2 w-full">
+            <button
+              className="flex items-center px-4 py-2 text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-t-2xl gap-2 w-full"
+              onClick={toggleModal}
+            >
               <FiUser />
               Profile Settings
             </button>

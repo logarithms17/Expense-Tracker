@@ -1,10 +1,11 @@
-import React from "react";
 import InitialHeader from "./Logo";
 import SecondaryButton from "../../components/Buttons/SecondaryButton";
 import DropdownButton from "../../components/Buttons/DropdownButton";
 import { NavLink } from "react-router-dom";
 
-const MainHeader = () => {
+import { useState } from "react";
+
+const MainHeader = ({ toggleModal }) => {
   return (
     <div className="flex justify-between border-b-[1px] border-neutral-600 pb-6 relative">
       <InitialHeader />
@@ -24,7 +25,7 @@ const MainHeader = () => {
           />
         </NavLink>
       </div>
-      <DropdownButton />
+      <DropdownButton toggleModal={toggleModal} />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const InputBox = ({
       <input
         type={type}
         placeholder={placeholder}
-        className={`${backgroundColor} border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 ${textColor} w-full`}
+        className={`${backgroundColor} border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 ${textColor} w-full custom-input-icon`}
         name={name}
         id={name}
       />
