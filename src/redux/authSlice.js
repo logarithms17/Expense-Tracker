@@ -89,25 +89,30 @@ const authSlice = createSlice({
                 console.log("Category added:", action.payload);
             })
             .addCase(deleteCategory.fulfilled, (state, action) => {
-                const { _id, type } = action.payload;
-                console.log(_id, type)
+    const id = action.payload;
 
-    // Provide default value if type is missing
-    const categoryType = type || "unknown";
+    // Ensure categories object exists and is properly formatted
+    if (state.user.categories) {
+        if (Array.isArray(state.user.categories.expenses)) {
+            state.user.categories.expenses = state.user.categories.expenses.filter(
+                (category) => category._id !== id
+            );
+        } else {
+            console.error("Expenses is not an array or is undefined.");
+        }
 
-    if (categoryType === "expenses") {
-        state.user.categories.expenses = state.user.categories.expenses.filter(
-            (category) => category._id !== _id
-        );
-    } else if (categoryType === "incomes") {
-        state.user.categories.incomes = state.user.categories.incomes.filter(
-            (category) => category._id !== _id
-        );
+        if (Array.isArray(state.user.categories.incomes)) {
+            state.user.categories.incomes = state.user.categories.incomes.filter(
+                (category) => category._id !== id
+            );
+        } else {
+            console.error("Incomes is not an array or is undefined.");
+        }
     } else {
-        console.error("Unknown category type:", categoryType);
+        console.error("Categories object is undefined.");
     }
 
-    console.log("Category deleted:", action.payload);
+    console.log("Category deleted:", id);
 })
             .addCase(deleteCategory.rejected, (state, action) => {
                 // Log the error action for debugging

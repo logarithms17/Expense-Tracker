@@ -198,16 +198,37 @@ export const createCategory = createAsyncThunk(
 export const deleteCategory = createAsyncThunk(
     "auth/deleteCategory",
     async (id, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token provided.");
+        }
+
         try {
             // Ensure 'id' is defined
             if (!id) {
                 return thunkAPI.rejectWithValue("No category ID provided.");
             }
             
-            const response = await axios.delete(`/categories/${id}`);
-            return response.data;  // Assuming the server returns relevant data
+            // Make the API request
+            const response = await axios.delete(`/categories/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            
+            // Assuming the response doesn't have a body and just returns status code 204
+            return id;  // Return the ID for further processing in the slice
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+            // Handle various error scenarios
+            if (error.response) {
+                // Server responded with a status other than 2xx
+                return thunkAPI.rejectWithValue(error.response.data.message || "Category deletion failed");
+            } else {
+                // Network error or something else
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
