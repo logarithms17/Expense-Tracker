@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FiUser, FiLogOut } from "react-icons/fi";
+import PropTypes from "prop-types";
 
 import { logOut } from "../../redux/authOperations";
 import { Notify } from "notiflix";
@@ -62,3 +63,7 @@ export default function DropdownButton({ toggleModal }) {
     </Menu>
   );
 }
+
+DropdownButton.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};
