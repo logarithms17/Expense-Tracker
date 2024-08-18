@@ -18,7 +18,6 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
-      console.log("rerendered");
       dispatch(refreshUser());
     }
   }, [dispatch]);
@@ -26,6 +25,10 @@ const App = () => {
   return (
     <div className="container mx-auto py-8 px-[100px]">
       <Routes>
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute redirectTo="/" component={DashboardPage} />}
+        />
         <Route
           path="/"
           element={
@@ -44,10 +47,7 @@ const App = () => {
             <RestrictedRoute redirectTo="/dashboard" component={SignInPage} />
           }
         />
-        <Route
-          path="/dashboard"
-          element={<PrivateRoute redirectTo="/" component={DashboardPage} />}
-        />
+
         <Route
           path="/all-expense"
           element={<PrivateRoute redirectTo="/" component={AllExpensePage} />}

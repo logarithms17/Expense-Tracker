@@ -17,6 +17,7 @@ export default function DropdownButton({ toggleModal }) {
     dispatch(logOut());
     Notify.success("Goodbye!");
   };
+  console.log(user);
 
   return (
     <Menu as="div" className="relative inline-block text-left">

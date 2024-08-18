@@ -1,22 +1,37 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Notify } from "notiflix";
+import userIcon from "../../assets/ph_user-bold.svg";
 
 import SettingsButton from "../Buttons/SettingsButton";
 
 import CurrencyDropDown from "../InputBox/CurrencyDropDown";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateAvatar, updateUser } from "../../redux/authOperations";
+import {
+  updateAvatar,
+  updateUser,
+  removeAvatar,
+} from "../../redux/authOperations";
 import CloseButton from "../Buttons/CloseButton";
+
+const extractAvatarId = (avatarUrl) => {
+  const regex = /\/avatar\/([^\/]+)\.webp$/;
+  const match = avatarUrl.match(regex);
+  console.log(match);
+  if (!match) {
+    console.error("Failed to extract avatarId from URL:", avatarUrl);
+    return null;
+  }
+  return match[1];
+};
 
 const UserSetsModal = ({ title, toggleModal }) => {
   const userName = useSelector((state) => state.auth.user.name);
-  const userCurrency = useSelector((state) => state.auth.user.currency);
   const userAvatar = useSelector((state) => state.auth.user.avatarUrl);
-  console.log(userName);
 
   const [newName, setNewName] = useState(userName);
+  const [avatarImage, setAvatarImage] = useState(userAvatar);
   const dispatch = useDispatch();
 
   const handleAvatarUpload = (file) => {
@@ -31,12 +46,58 @@ const UserSetsModal = ({ title, toggleModal }) => {
     const formData = new FormData(form);
     const name = formData.get("name");
     const currency = formData.get("currency");
+
+    if (!name) {
+      Notify.failure("Please fill in all the fields");
+      return;
+    }
+
+    if (!currency) {
+      Notify.failure("Please fill in all the fields");
+      return;
+    }
+
     dispatch(updateUser({ name, currency }));
+    toggleModal();
+  };
+
+  const handleRemoveAvatar = (avatarUrl) => {
+    console.log("triggered handleRemoveAvatar");
+    const avatarId = extractAvatarId(avatarUrl);
+
+    console.log(avatarId);
+
+    if (!avatarId) {
+      console.error("Invalid avatarId. Cannot proceed with removal.");
+      return;
+    }
+
+    dispatch(removeAvatar(avatarId))
+      .unwrap()
+      .then((data) => {
+        console.log("Avatar removed:", data);
+      })
+      .catch((error) => {
+        console.error("Failed to remove avatar:", error);
+      });
+
+    dispatch(updateAvatar(userIcon));
+    console.log("dispatched icon");
+  };
+
+  const handleOverlayClick = (e) => {
+    // Check if the click was on the overlay, not on the modal
+    if (e.target === e.currentTarget) {
+      toggleModal();
+    }
   };
 
   return (
     <>
-      <div className="fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden"></div>
+      <div
+        className="fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden"
+        onClick={handleOverlayClick}
+      ></div>
       <div className="w-[500px] h-[461px] bg-neutral-900 opacity-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-3xl px-10 py-8">
         <CloseButton toggleModal={toggleModal} />
         <p className="text-2xl pt-3">{title}</p>
@@ -58,6 +119,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
               <input
                 type="file"
                 style={{ display: "none" }}
+                name="avatar"
                 className=""
                 id="avatarUpload"
                 onChange={(e) => {
@@ -66,7 +128,10 @@ const UserSetsModal = ({ title, toggleModal }) => {
                 }}
               />
             </label>
-            <SettingsButton title="Remove" />
+            <SettingsButton
+              title="Remove"
+              handleRemoveAvatar={handleRemoveAvatar}
+            />
           </div>
           <form action="" onSubmit={handleSubmit}>
             <div className="grid grid-cols-6 items-center w-full mt-4 gap-2 text-white">
@@ -109,4 +174,5 @@ export default UserSetsModal;
 
 UserSetsModal.propTypes = {
   title: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };

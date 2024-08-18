@@ -2,8 +2,7 @@ import InitialHeader from "./Logo";
 import SecondaryButton from "../../components/Buttons/SecondaryButton";
 import DropdownButton from "../../components/Buttons/DropdownButton";
 import { NavLink } from "react-router-dom";
-
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 const MainHeader = ({ toggleModal }) => {
   return (
@@ -31,3 +30,7 @@ const MainHeader = ({ toggleModal }) => {
 };
 
 export default MainHeader;
+
+MainHeader.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};

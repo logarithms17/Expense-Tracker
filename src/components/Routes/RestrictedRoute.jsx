@@ -7,7 +7,6 @@ const RestrictedRoute = ({
   redirectedTo = "/dashboard",
 }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  console.log("User is logged in:", isLoggedIn);
 
   return isLoggedIn ? <Navigate to={redirectedTo} /> : <Component />;
 };

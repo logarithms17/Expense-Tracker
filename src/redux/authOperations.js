@@ -76,12 +76,10 @@ export const refreshUser = createAsyncThunk(
             return thunkAPI.rejectWithValue("No access token available.");
         }
 
-        console.log(accessToken)
         setAuthHeader(accessToken);
 
         try {
             const response = await axios.get("/users/current");
-            console.log("User data refreshed successfully: ", response.data);
             return response.data;
         } catch (error) {
             console.log("Error occurred during refreshUser API call: ", error.response?.data || error.message);
@@ -135,4 +133,35 @@ export const updateUser = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
         }
     }
+);
+
+// REMOVE AVATAR
+
+export const removeAvatar = createAsyncThunk(
+  "auth/removeAvatar",
+  async (avatarId, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("No access token available.");
+    }
+
+    if (!avatarId) {
+      return thunkAPI.rejectWithValue("No avatar ID provided.");
+    }
+
+    try {
+      const response = await axios.delete(`/users/avatar/${avatarId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Avatar removed successfully: ", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("Error occurred during removeAvatar API call: ", error.response?.data || error.message);
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
 );
