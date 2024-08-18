@@ -16,7 +16,7 @@ import {
 import CloseButton from "../Buttons/CloseButton";
 
 const extractAvatarId = (avatarUrl) => {
-  const regex = /\/avatar\/([^\/]+)\.webp$/;
+  const regex = /\/avatar\/([^]+)\.webp$/;
   const match = avatarUrl.match(regex);
   console.log(match);
   if (!match) {
@@ -31,7 +31,6 @@ const UserSetsModal = ({ title, toggleModal }) => {
   const userAvatar = useSelector((state) => state.auth.user.avatarUrl);
 
   const [newName, setNewName] = useState(userName);
-  const [avatarImage, setAvatarImage] = useState(userAvatar);
   const dispatch = useDispatch();
 
   const handleAvatarUpload = (file) => {

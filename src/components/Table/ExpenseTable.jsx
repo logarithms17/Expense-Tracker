@@ -1,5 +1,5 @@
 import React from "react";
-import SecondaryButton from "../Buttons/SecondaryButton";
+import PropTypes from "prop-types";
 
 import edit from "../../assets/edit-2.svg";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -43,3 +43,7 @@ const Table = ({ data }) => {
 };
 
 export default Table;
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+};

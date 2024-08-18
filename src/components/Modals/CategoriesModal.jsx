@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import CategoryList from "./CategoryListModal";
 import InputBox from "../InputBox/InputBox";
 import CloseButton from "../Buttons/CloseButton";
@@ -6,19 +5,15 @@ import CloseButton from "../Buttons/CloseButton";
 import PropTypes from "prop-types";
 
 const CategoriesModal = ({ title }) => {
-  const [display, setDisplay] = useState("");
-
-  const handleClick = () => {};
-
   return (
     <>
       <div
-        className={`${display} fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden`}
+        className={` fixed w-screen h-screen bg-stone-950 z-10 opacity-50 top-0 left-0 m-auto overflow-hidden`}
       ></div>
       <div
-        className={`${display} w-[500px] h-[461px] bg-neutral-900 opacity-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-3xl px-10 py-8`}
+        className={` w-[500px] h-[461px] bg-neutral-900 opacity-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-3xl px-10 py-8`}
       >
-        <CloseButton handleClick={handleClick} />
+        <CloseButton />
         <p className="text-2xl pt-3">{title}</p>
         <p className="description py-3">All Category</p>
         <div>
