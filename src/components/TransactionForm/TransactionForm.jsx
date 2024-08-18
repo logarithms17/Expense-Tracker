@@ -6,7 +6,7 @@ import RadioInput from "../InputBox/RadioInput";
 import TimeInput from "../InputBox/TimeInput";
 import DateInput from "../InputBox/DateInput";
 
-const TransactionForm = () => {
+const TransactionForm = ({ handleCategoryClick }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,13 +19,9 @@ const TransactionForm = () => {
     console.log(formData.get("date"));
     console.log(formData.get("time"));
     console.log(formData.get("category"));
-    console.log(formData.get("comment"));
     console.log(formData.get("sum"));
     console.log(formData.get("currency"));
-    console.log(formData.get("type"));
-
-    console.log(formData.get("email"));
-    console.log(formData.get("password"));
+    console.log(formData.get("comment"));
   };
   return (
     <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
@@ -56,6 +52,7 @@ const TransactionForm = () => {
           backgroundColor="bg-neutral-900"
           name="category"
           textColor="text-neutral-500"
+          onClick={handleCategoryClick}
         />
         <CurrencyInputBox />
         <label htmlFor="" className="flex-1">

@@ -1,15 +1,16 @@
-import React from "react";
+import { useState } from "react";
 
 const initialTime = () => {
   const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  const pad = (num) => num.toString().padStart(2, "0"); // Pad single-digit numbers
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
   return `${hours}:${minutes}:${seconds}`;
 };
-
 const TimeInput = () => {
-  const [time, setTime] = React.useState(initialTime());
+  const [time, setTime] = useState(initialTime());
+  console.log(time);
 
   return (
     <label htmlFor="time" className="flex-1">

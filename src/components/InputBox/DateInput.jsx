@@ -1,15 +1,17 @@
-import React from "react";
+import { useState } from "react";
 
 const initialDate = () => {
   const date = new Date();
   const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${day}-${month}-${year}`;
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Pad month with leading zero
+  const day = String(date.getDate()).padStart(2, "0"); // Pad day with leading zero
+  return `${year}-${month}-${day}`;
 };
 
 const DateInput = () => {
-  const [date, setDate] = React.useState(initialDate());
+  const [date, setDate] = useState(initialDate());
+
+  console.log(date);
 
   return (
     <label htmlFor="date" className="flex-1">

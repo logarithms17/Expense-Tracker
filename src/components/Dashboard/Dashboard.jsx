@@ -10,11 +10,12 @@ import LogoutModal from "../Modals/LogoutModal";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import UseToggle from "../../Hook/UseToggle";
-import { useEffect } from "react";
-
 const Dashboard = ({ showModal, toggleModal }) => {
   const dispatch = useDispatch();
+
+  const handleCategoryClick = () => {
+    console.log("clicked");
+  };
 
   return (
     <main className="flex gap-9">
@@ -53,7 +54,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
         </div>
       </section>
       <section className="mt-14 p-8 bg-neutral-900 rounded-3xl w-[600px]">
-        <TransactionForm />
+        <TransactionForm handleCategoryClick={handleCategoryClick} />
       </section>
     </main>
   );
