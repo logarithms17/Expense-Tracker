@@ -5,8 +5,9 @@ import CurrencyInputBox from "../InputBox/CurrencyInputBox";
 import RadioInput from "../InputBox/RadioInput";
 import TimeInput from "../InputBox/TimeInput";
 import DateInput from "../InputBox/DateInput";
+import PropTypes from "prop-types";
 
-const TransactionForm = ({ handleCategoryClick }) => {
+const TransactionForm = ({ handleCategoryClick, handleRadioChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,12 +32,14 @@ const TransactionForm = ({ handleCategoryClick }) => {
           name="transaction-type"
           id="expense"
           value="expense"
+          handleRadioChange={handleRadioChange}
         />
         <RadioInput
           title="Income"
           name="transaction-type"
           id="income"
           value="income"
+          handleRadioChange={handleRadioChange}
         />
       </div>
 
@@ -45,15 +48,17 @@ const TransactionForm = ({ handleCategoryClick }) => {
           <DateInput />
           <TimeInput />
         </div>
-        <InputBox
-          type="text"
-          title="Category"
-          placeholder="Different"
-          backgroundColor="bg-neutral-900"
-          name="category"
-          textColor="text-neutral-500"
-          onClick={handleCategoryClick}
-        />
+        <label htmlFor="category" className="flex-1">
+          <p className="pb-3">Category</p>
+          <input
+            type="text"
+            placeholder="Please choose or create a category"
+            className={`bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 text-neutral-500 w-full custom-input-icon`}
+            name="category"
+            id="category"
+            onClick={handleCategoryClick}
+          />
+        </label>
         <CurrencyInputBox />
         <label htmlFor="" className="flex-1">
           <p className="pb-3">Comment</p>
@@ -73,3 +78,8 @@ const TransactionForm = ({ handleCategoryClick }) => {
 };
 
 export default TransactionForm;
+
+TransactionForm.propTypes = {
+  handleCategoryClick: PropTypes.func.isRequired,
+  handleRadioChange: PropTypes.func.isRequired,
+};

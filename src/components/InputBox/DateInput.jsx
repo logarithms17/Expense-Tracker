@@ -11,8 +11,6 @@ const initialDate = () => {
 const DateInput = () => {
   const [date, setDate] = useState(initialDate());
 
-  console.log(date);
-
   return (
     <label htmlFor="date" className="flex-1">
       <p className="pb-3">Date</p>

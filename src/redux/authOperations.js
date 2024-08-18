@@ -165,3 +165,49 @@ export const removeAvatar = createAsyncThunk(
     }
   }
 );
+
+// CREATE USER TRANSACTIONS CATEGORY
+
+export const createCategory = createAsyncThunk(
+    "auth/createCategory",
+    async (category, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+            const response = await axios.post("/categories", category, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Pass the token in the header
+                }
+            });
+            console.log("Category created successfully: ", response.data);
+            return response.data;
+        } catch (error) {
+            console.log("Error occurred during createCategory API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+// DELETE USER TRANSACTION CATEGORY
+
+export const deleteCategory = createAsyncThunk(
+    "auth/deleteCategory",
+    async (id, thunkAPI) => {
+        try {
+            // Ensure 'id' is defined
+            if (!id) {
+                return thunkAPI.rejectWithValue("No category ID provided.");
+            }
+            
+            const response = await axios.delete(`/categories/${id}`);
+            return response.data;  // Assuming the server returns relevant data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);

@@ -10,7 +10,6 @@ const initialTime = () => {
 };
 const TimeInput = () => {
   const [time, setTime] = useState(initialTime());
-  console.log(time);
 
   return (
     <label htmlFor="time" className="flex-1">

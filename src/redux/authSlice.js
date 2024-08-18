@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar } from "./authOperations";
+import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory } from "./authOperations";
 
 const initialState = {
     user: { name: null, email: null },
@@ -9,6 +9,16 @@ const initialState = {
     refreshToken: localStorage.getItem("refreshToken") || null,
     isLoggedIn: false,
     isRefreshing: false,
+
+    categories: {
+        incomes: [{
+            categoryName: null,
+            type: null,
+        } 
+        ],
+        expenses: [],
+    }
+    
 };
 
 const authSlice = createSlice({
@@ -66,8 +76,48 @@ const authSlice = createSlice({
             .addCase(removeAvatar.rejected, (state, action) => {
                 console.log(action);
             })
-    },
-});
+            .addCase(createCategory.fulfilled, (state, action) => {
+                const { type } = action.payload
+                if (type === "expenses") {
+                    state.user.categories.expenses.push(action.payload);
+                }
+
+                if (type === "incomes") {
+                    state.user.categories.incomes.push(action.payload);
+                }
+
+                console.log("Category added:", action.payload);
+            })
+            .addCase(deleteCategory.fulfilled, (state, action) => {
+                const { _id, type } = action.payload;
+                console.log(_id, type)
+
+    // Provide default value if type is missing
+    const categoryType = type || "unknown";
+
+    if (categoryType === "expenses") {
+        state.user.categories.expenses = state.user.categories.expenses.filter(
+            (category) => category._id !== _id
+        );
+    } else if (categoryType === "incomes") {
+        state.user.categories.incomes = state.user.categories.incomes.filter(
+            (category) => category._id !== _id
+        );
+    } else {
+        console.error("Unknown category type:", categoryType);
+    }
+
+    console.log("Category deleted:", action.payload);
+})
+            .addCase(deleteCategory.rejected, (state, action) => {
+                // Log the error action for debugging
+                console.log(action);
+
+                // Optionally, store the error in the state for error handling in the UI
+                state.error = action.payload || "Category deletion failed";
+            });
+                },
+            });
 
 const authReducer = authSlice.reducer;
 
