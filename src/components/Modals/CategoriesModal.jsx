@@ -32,7 +32,8 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
         createCategory({ type: "expenses", categoryName: newCategory })
       ).unwrap();
       console.log("Category created successfully:", result);
-      toggleModalExpense(); // Close the modal after the category is successfully created
+      setNewCategory("");
+      console.log(newCategory);
     } catch (error) {
       console.error("Failed to create category:", error);
     }
@@ -62,6 +63,7 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
                   name="expenses"
                   id="expenses"
                   onChange={handleChange}
+                  value={newCategory}
                 />
               </label>
               <div className="absolute top-[1px] right-0">
