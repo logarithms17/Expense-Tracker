@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputBox from "../InputBox/InputBox";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import CurrencyInputBox from "../InputBox/CurrencyInputBox";
@@ -7,7 +7,11 @@ import TimeInput from "../InputBox/TimeInput";
 import DateInput from "../InputBox/DateInput";
 import PropTypes from "prop-types";
 
-const TransactionForm = ({ handleCategoryClick, handleRadioChange }) => {
+const TransactionForm = ({
+  handleCategoryClick,
+  handleRadioChange,
+  categoryValue,
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -57,6 +61,7 @@ const TransactionForm = ({ handleCategoryClick, handleRadioChange }) => {
             name="category"
             id="category"
             onClick={handleCategoryClick}
+            value={categoryValue}
           />
         </label>
         <CurrencyInputBox />

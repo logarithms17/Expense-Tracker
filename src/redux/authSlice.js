@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory } from "./authOperations";
+import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory } from "./authOperations";
 
 const initialState = {
     user: { name: null, email: null },
@@ -89,40 +89,71 @@ const authSlice = createSlice({
                 console.log("Category added:", action.payload);
             })
             .addCase(deleteCategory.fulfilled, (state, action) => {
-    const id = action.payload;
+                const id = action.payload;
 
-    // Ensure categories object exists and is properly formatted
-    if (state.user.categories) {
-        if (Array.isArray(state.user.categories.expenses)) {
-            state.user.categories.expenses = state.user.categories.expenses.filter(
-                (category) => category._id !== id
-            );
-        } else {
-            console.error("Expenses is not an array or is undefined.");
-        }
+                // Ensure categories object exists and is properly formatted
+                if (state.user.categories) {
+                    if (Array.isArray(state.user.categories.expenses)) {
+                        state.user.categories.expenses = state.user.categories.expenses.filter(
+                            (category) => category._id !== id
+                        );
+                    } else {
+                        console.error("Expenses is not an array or is undefined.");
+                    }
 
-        if (Array.isArray(state.user.categories.incomes)) {
-            state.user.categories.incomes = state.user.categories.incomes.filter(
-                (category) => category._id !== id
-            );
-        } else {
-            console.error("Incomes is not an array or is undefined.");
-        }
-    } else {
-        console.error("Categories object is undefined.");
-    }
+                    if (Array.isArray(state.user.categories.incomes)) {
+                        state.user.categories.incomes = state.user.categories.incomes.filter(
+                            (category) => category._id !== id
+                        );
+                    } else {
+                        console.error("Incomes is not an array or is undefined.");
+                    }
+                } else {
+                    console.error("Categories object is undefined.");
+                }
 
-    console.log("Category deleted:", id);
-})
+                console.log("Category deleted:", id);
+            })
             .addCase(deleteCategory.rejected, (state, action) => {
                 // Log the error action for debugging
                 console.log(action);
 
                 // Optionally, store the error in the state for error handling in the UI
                 state.error = action.payload || "Category deletion failed";
-            });
-                },
-            });
+            })
+            .addCase(updateCategory.fulfilled, (state, action) => {
+                const updatedCategory = action.payload;
+
+                if (updatedCategory) {
+                    if (Array.isArray(state.user.categories.expenses)) {
+                        state.user.categories.expenses = state.user.categories.expenses.map((category) => {
+                            if (category._id === updatedCategory._id) {
+                                return updatedCategory;
+                            }
+                            return category;
+                        });
+                    } else {
+                        console.error("Expenses is not an array or is undefined.");
+                    }
+
+                    if (Array.isArray(state.user.categories.incomes)) {
+                        state.user.categories.incomes = state.user.categories.incomes.map((category) => {
+                            if (category._id === updatedCategory._id) {
+                                return updatedCategory;
+                            }
+                            return category;
+                        });
+                    } else {
+                        console.error("Incomes is not an array or is undefined.");
+                    }
+
+                    console.log("Category updated:", updatedCategory);
+                }
+
+                console.log("Category update failed:", action.error);
+            })
+            },
+        });
 
 const authReducer = authSlice.reducer;
 

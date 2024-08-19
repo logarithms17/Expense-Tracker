@@ -16,7 +16,6 @@ export const register = createAsyncThunk(
     async ({ name, email, password }, thunkAPI) => {
         try {
             const response = await axios.post("/auth/register", { name, email, password })
-            console.log(response.data)
             setAuthHeader(response.data.token)
             return response.data
         } catch (error) {
@@ -32,7 +31,6 @@ export const logIn = createAsyncThunk(
         try {
             const response = await axios.post("/auth/login", { email, password })
             setAuthHeader(response.data.accessToken)
-            console.log(response.data)
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -46,7 +44,6 @@ export const logOut = createAsyncThunk(
         const state = thunkAPI.getState();
         const token = state.auth.token;
 
-        console.log(token)
         try {
             if (!token) {
                 return thunkAPI.rejectWithValue("No access token available.");
@@ -59,7 +56,6 @@ export const logOut = createAsyncThunk(
             clearAuthHeader();
             return { message: "Logged out successfully" };
         } catch (error) {
-            console.log("Error occurred during logOut API call: ", error.response?.data || error.message);
             return thunkAPI.rejectWithValue(error.message)
         }
             }
@@ -82,7 +78,6 @@ export const refreshUser = createAsyncThunk(
             const response = await axios.get("/users/current");
             return response.data;
         } catch (error) {
-            console.log("Error occurred during refreshUser API call: ", error.response?.data || error.message);
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
         }
     }
@@ -102,7 +97,6 @@ export const updateAvatar = createAsyncThunk(
 
         try {
             const response = await axios.patch("/users/avatar", avatar);
-            console.log("Avatar updated successfully: ", response.data);
             return response.data;
         } catch (error) {
             console.log("Error occurred during updateAvatar API call: ", error.response?.data || error.message);
@@ -118,7 +112,6 @@ export const updateUser = createAsyncThunk(
     async (user, thunkAPI) => {
         const state = thunkAPI.getState();
         const token = state.auth.token;
-        console.log(user)
 
         if (!token) {
             return thunkAPI.rejectWithValue("No access token available.");
@@ -126,10 +119,8 @@ export const updateUser = createAsyncThunk(
 
         try {
             const response = await axios.patch("/users/info", user);
-            console.log("User updated successfully: ", response.data);
             return response.data;
         } catch (error) {
-            console.log("Error occurred during updateUser API call: ", error.response?.data || error.message);
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
         }
     }
@@ -157,10 +148,8 @@ export const removeAvatar = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Avatar removed successfully: ", response.data);
       return response.data;
     } catch (error) {
-      console.log("Error occurred during removeAvatar API call: ", error.response?.data || error.message);
       return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -231,4 +220,27 @@ export const deleteCategory = createAsyncThunk(
             }
         }
     }
+);
+
+// UPDATE USER TRANSACTION CATEGORY
+
+export const updateCategory = createAsyncThunk(
+  'auth/updateCategory',
+  async ({ id, categoryName }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `/categories/${id}`,
+        { categoryName }, // Only send categoryName in the body
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error occurred during updateCategory API call: ', error);
+      return rejectWithValue(error.response.data);
+    }
+  }
 );

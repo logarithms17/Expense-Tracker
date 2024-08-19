@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Icons from "../Icons/Icons";
 import check from "../../assets/check.svg";
 import trash from "../../assets/trash-2.svg";
@@ -7,19 +7,25 @@ import edit from "../../assets/edit-icon.svg";
 import { deleteCategory } from "../../redux/authOperations";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 
-const CategoryList = ({ handleButtonChange }) => {
-  const categoryList = useSelector(
-    (state) => state.auth.user.categories.expenses
-  );
+const CategoryList = ({
+  handleButtonChange,
+  handleCategorySelection,
+  title,
+}) => {
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+
+  const categoryList =
+    useSelector((state) =>
+      title === "Expenses"
+        ? state.auth.user.categories.expenses
+        : state.auth.user.categories.incomes
+    ) || []; // create an empty array if undefined
+
   console.log(categoryList);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("Category list updated:", categoryList);
-  }, [categoryList]);
 
   const handleDeleteCategory = (id) => {
     console.log(id);
@@ -32,8 +38,10 @@ const CategoryList = ({ handleButtonChange }) => {
         <li key={_id} className="py-2 text-lg flex justify-between">
           {categoryName}
           <div className="flex mr-4 gap-3">
-            <Icons icon={check} />
-            <button onClick={handleButtonChange}>
+            <button onClick={(e) => handleCategorySelection(categoryName)}>
+              <img src={check} alt="" />
+            </button>
+            <button onClick={(e) => handleButtonChange(_id, categoryName)}>
               <img src={edit} alt="" />
             </button>
             <Icons
@@ -49,3 +57,9 @@ const CategoryList = ({ handleButtonChange }) => {
 };
 
 export default CategoryList;
+
+CategoryList.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleButtonChange: PropTypes.func.isRequired,
+  handleCategorySelection: PropTypes.func.isRequired,
+};

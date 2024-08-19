@@ -1,4 +1,3 @@
-import React from "react";
 import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
@@ -9,23 +8,27 @@ import UserSetsModal from "../Modals/UserSetsModal";
 import LogoutModal from "../Modals/LogoutModal";
 import { Notify } from "notiflix";
 
-import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
 const Dashboard = ({ showModal, toggleModal }) => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
-
+  const [categoryValue, setCategoryValue] = useState("");
   const [selectedTransactionType, setSelectedTransactionType] = useState("");
-
-  // Toggle Categories Modal
+  // Toggle Categories Expense Modal
   const [showCategoriesExpenseModal, setShowCategoriesExpenseModal] =
     useState(false);
+  // Toggle Categories Incomes Modal
+  const [showCategoriesIncomeModal, setshowCategoriesIncomeModal] =
+    useState(false);
 
+  // TOGGLE EXPENSE CATEGORIES MODAL
   const toggleModalExpense = () => {
     setShowCategoriesExpenseModal(!showCategoriesExpenseModal);
+  };
+
+  // TOGGLE EXPENSE CATEGORIES MODAL
+  const toggleModalIncome = () => {
+    setshowCategoriesIncomeModal(!showCategoriesIncomeModal);
   };
 
   // Update the state when a radio button is selected
@@ -34,6 +37,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
     setSelectedTransactionType(e.target.value);
   };
 
+  // TRIGGERS TO OPEN THE MODAL FOR CATEGORY
   const handleCategoryClick = () => {
     console.log("clicked");
 
@@ -45,6 +49,19 @@ const Dashboard = ({ showModal, toggleModal }) => {
     if (selectedTransactionType === "expense") {
       setShowCategoriesExpenseModal(true);
     }
+
+    if (selectedTransactionType === "income") {
+      setshowCategoriesIncomeModal(true);
+    }
+  };
+
+  // HANDLES THE VALUE OF THE CATEGORY IN THE TRANSACTION FORM
+  const handleCategorySelection = (categoryName) => {
+    console.log(categoryName);
+    setCategoryValue(categoryName);
+    console.log(categoryValue);
+
+    toggleModalExpense();
   };
 
   return (
@@ -53,9 +70,16 @@ const Dashboard = ({ showModal, toggleModal }) => {
         <CategoriesModal
           title="Expenses"
           toggleModalExpense={toggleModalExpense}
+          handleCategorySelection={handleCategorySelection}
         />
       )}
-      {/* <CategoriesModal title="Incomes" /> */}
+      {showCategoriesIncomeModal && (
+        <CategoriesModal
+          title="Incomes"
+          toggleModalExpense={toggleModalIncome}
+          handleCategorySelection={handleCategorySelection}
+        />
+      )}
       {showModal && (
         <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
       )}
@@ -92,6 +116,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
         <TransactionForm
           handleCategoryClick={handleCategoryClick}
           handleRadioChange={handleRadioChange}
+          categoryValue={categoryValue}
         />
       </section>
     </main>

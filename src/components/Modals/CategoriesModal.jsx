@@ -1,24 +1,29 @@
-import CategoryList from "./CategoryListModal";
+import CategoryList from "./CategoryList";
 import CloseButton from "../Buttons/CloseButton";
 
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { createCategory } from "../../redux/authOperations";
+import { createCategory, updateCategory } from "../../redux/authOperations";
 import { useState } from "react";
 
-const CategoriesModal = ({ title, toggleModalExpense }) => {
+const CategoriesModal = ({
+  title,
+  toggleModalExpense,
+  handleCategorySelection,
+}) => {
   const [newCategory, setNewCategory] = useState("");
   const [buttonType, setButtonType] = useState("Add");
+  const [editingCategoryId, setEditingCategoryId] = useState(null);
 
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.auth.user.categories);
-  const user = useSelector((state) => state.auth.user);
 
   const handleChange = (e) => {
     setNewCategory(e.target.value);
   };
 
-  const handleButtonChange = () => {
+  const handleButtonChange = (id, categoryName) => {
+    setEditingCategoryId(id);
+    setNewCategory(categoryName);
     setButtonType("Edit");
   };
 
@@ -39,6 +44,21 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
         console.error("Failed to create category:", error);
       }
     }
+
+    if (buttonType === "Edit" && editingCategoryId) {
+      try {
+        console.log(editingCategoryId, newCategory);
+        const result = await dispatch(
+          updateCategory({ id: editingCategoryId, categoryName: newCategory })
+        ).unwrap();
+        console.log("Category updated successfully:", result);
+        // Clear the input field after the operation
+        setNewCategory("");
+        setButtonType("Add"); // Reset to Add mode after editing
+      } catch (error) {
+        console.error("Failed to create or edit category:", error);
+      }
+    }
   };
 
   return (
@@ -53,7 +73,11 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
         <p className="text-2xl pt-3">{title}</p>
         <p className="description py-3">All Category</p>
         <div>
-          <CategoryList handleButtonChange={handleButtonChange} />
+          <CategoryList
+            handleButtonChange={handleButtonChange}
+            handleCategorySelection={handleCategorySelection}
+            title={title}
+          />
           <div className="mt-3">
             <p>New Category</p>
             <div className="flex mt-4 relative items-center">
@@ -89,4 +113,5 @@ export default CategoriesModal;
 CategoriesModal.propTypes = {
   title: PropTypes.string.isRequired,
   toggleModalExpense: PropTypes.func.isRequired,
+  handleCategorySelection: PropTypes.func.isRequired,
 };
