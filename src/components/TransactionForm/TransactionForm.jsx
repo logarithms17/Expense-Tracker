@@ -7,42 +7,61 @@ import TimeInput from "../InputBox/TimeInput";
 import DateInput from "../InputBox/DateInput";
 import PropTypes from "prop-types";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { createTransaction } from "../../redux/authOperations";
+
 const TransactionForm = ({
   handleCategoryClick,
   handleRadioChange,
-  categoryValue,
+  categoryInput,
 }) => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    console.log(e.target);
 
-    console.log(formData);
+    const date = formData.get("date");
+    const time = formData.get("time");
+    const category = formData.get("category");
+    const sum = formData.get("sum");
+    const comment = formData.get("comment");
+    const type = formData.get("type");
 
-    console.log(formData.get("transaction-type"));
+    const transaction = {
+      date,
+      time,
+      category,
+      sum,
+      comment,
+      type,
+    };
 
-    console.log(formData.get("date"));
-    console.log(formData.get("time"));
-    console.log(formData.get("category"));
-    console.log(formData.get("sum"));
-    console.log(formData.get("currency"));
-    console.log(formData.get("comment"));
+    dispatch(createTransaction(transaction));
+
+    e.target.reset();
   };
   return (
     <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <div className="flex items-center gap-5">
         <RadioInput
           title="Expense"
-          name="transaction-type"
+          name="type"
           id="expense"
-          value="expense"
+          value="expenses"
           handleRadioChange={handleRadioChange}
         />
         <RadioInput
           title="Income"
-          name="transaction-type"
+          name="type"
           id="income"
-          value="income"
+          value="incomes"
           handleRadioChange={handleRadioChange}
         />
       </div>
@@ -61,7 +80,8 @@ const TransactionForm = ({
             name="category"
             id="category"
             onClick={handleCategoryClick}
-            value={categoryValue}
+            value={categoryInput}
+            onChange={() => {}}
           />
         </label>
         <CurrencyInputBox />
@@ -87,4 +107,5 @@ export default TransactionForm;
 TransactionForm.propTypes = {
   handleCategoryClick: PropTypes.func.isRequired,
   handleRadioChange: PropTypes.func.isRequired,
+  categoryInput: PropTypes.string.isRequired,
 };

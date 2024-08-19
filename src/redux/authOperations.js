@@ -31,6 +31,7 @@ export const logIn = createAsyncThunk(
         try {
             const response = await axios.post("/auth/login", { email, password })
             setAuthHeader(response.data.accessToken)
+            console.log(response.data)
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -244,3 +245,30 @@ export const updateCategory = createAsyncThunk(
     }
   }
 );
+
+// CREATE USER TRANSACTION
+
+export const createTransaction = createAsyncThunk(
+    "auth/createTransaction",
+    async (transaction, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+            const response = await axios.post("/transactions", transaction, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Pass the token in the header
+                }
+            });
+            console.log("Transaction created successfully: ", response.data);
+            return response.data;
+        } catch (error) {
+            console.log("Error occurred during createTransaction API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)

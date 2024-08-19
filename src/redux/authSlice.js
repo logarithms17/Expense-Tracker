@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory } from "./authOperations";
+import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory, createTransaction } from "./authOperations";
+import { act } from "react";
 
 const initialState = {
     user: { name: null, email: null },
@@ -151,6 +152,21 @@ const authSlice = createSlice({
                 }
 
                 console.log("Category update failed:", action.error);
+            })
+            .addCase(updateCategory.rejected, (state, action) => {
+                console.log(action);
+                console.log("Category update failed:", action.error);
+            })
+            .addCase(createTransaction.fulfilled, (state, action) => {
+                console.log('Action payload:', action.payload); // Should log the new transaction
+                console.log('Current transactions:', state.user.transactions); // Should log the current transactions array
+
+                if (!state.user.transactions) {
+                    console.log('Initializing transactions array');
+                    state.user.transactions = []; // Initialize transactions if undefined
+                }
+
+                state.user.transactions.push(action.payload);
             })
             },
         });

@@ -12,13 +12,13 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 const Dashboard = ({ showModal, toggleModal }) => {
-  const [categoryValue, setCategoryValue] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
   const [selectedTransactionType, setSelectedTransactionType] = useState("");
   // Toggle Categories Expense Modal
   const [showCategoriesExpenseModal, setShowCategoriesExpenseModal] =
     useState(false);
   // Toggle Categories Incomes Modal
-  const [showCategoriesIncomeModal, setshowCategoriesIncomeModal] =
+  const [showCategoriesIncomeModal, setShowCategoriesIncomeModal] =
     useState(false);
 
   // TOGGLE EXPENSE CATEGORIES MODAL
@@ -28,7 +28,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
 
   // TOGGLE EXPENSE CATEGORIES MODAL
   const toggleModalIncome = () => {
-    setshowCategoriesIncomeModal(!showCategoriesIncomeModal);
+    setShowCategoriesIncomeModal(!showCategoriesIncomeModal);
   };
 
   // Update the state when a radio button is selected
@@ -46,22 +46,25 @@ const Dashboard = ({ showModal, toggleModal }) => {
       return;
     }
 
-    if (selectedTransactionType === "expense") {
+    if (selectedTransactionType === "expenses") {
       setShowCategoriesExpenseModal(true);
     }
 
-    if (selectedTransactionType === "income") {
-      setshowCategoriesIncomeModal(true);
+    if (selectedTransactionType === "incomes") {
+      setShowCategoriesIncomeModal(true);
     }
   };
 
   // HANDLES THE VALUE OF THE CATEGORY IN THE TRANSACTION FORM
-  const handleCategorySelection = (categoryName) => {
-    console.log(categoryName);
-    setCategoryValue(categoryName);
-    console.log(categoryValue);
+  const handleCategorySelection = (_id, title) => {
+    setCategoryInput(_id);
+    if (title === "Expenses") {
+      toggleModalExpense();
+    }
 
-    toggleModalExpense();
+    if (title === "Incomes") {
+      toggleModalIncome();
+    }
   };
 
   return (
@@ -116,7 +119,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
         <TransactionForm
           handleCategoryClick={handleCategoryClick}
           handleRadioChange={handleRadioChange}
-          categoryValue={categoryValue}
+          categoryInput={categoryInput}
         />
       </section>
     </main>
