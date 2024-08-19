@@ -1,5 +1,4 @@
 import CategoryList from "./CategoryListModal";
-import InputBox from "../InputBox/InputBox";
 import CloseButton from "../Buttons/CloseButton";
 
 import PropTypes from "prop-types";
@@ -9,33 +8,36 @@ import { useState } from "react";
 
 const CategoriesModal = ({ title, toggleModalExpense }) => {
   const [newCategory, setNewCategory] = useState("");
+  const [buttonType, setButtonType] = useState("Add");
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.auth.user.categories);
   const user = useSelector((state) => state.auth.user);
 
-  console.log(categories);
-  console.log(user);
-
   const handleChange = (e) => {
     setNewCategory(e.target.value);
   };
 
-  const handleCreateCategory = async () => {
-    if (newCategory.trim() === "") {
-      console.log("Category name cannot be empty");
-      return;
-    }
+  const handleButtonChange = () => {
+    setButtonType("Edit");
+  };
 
-    try {
-      const result = await dispatch(
-        createCategory({ type: "expenses", categoryName: newCategory })
-      ).unwrap();
-      console.log("Category created successfully:", result);
-      setNewCategory("");
-      console.log(newCategory);
-    } catch (error) {
-      console.error("Failed to create category:", error);
+  const handleCreateCategory = async () => {
+    if (buttonType === "Add") {
+      if (newCategory.trim() === "") {
+        console.log("Category name cannot be empty");
+        return;
+      }
+
+      try {
+        const result = await dispatch(
+          createCategory({ type: "expenses", categoryName: newCategory })
+        ).unwrap();
+        console.log("Category created successfully:", result);
+        setNewCategory("");
+      } catch (error) {
+        console.error("Failed to create category:", error);
+      }
     }
   };
 
@@ -51,7 +53,7 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
         <p className="text-2xl pt-3">{title}</p>
         <p className="description py-3">All Category</p>
         <div>
-          <CategoryList />
+          <CategoryList handleButtonChange={handleButtonChange} />
           <div className="mt-3">
             <p>New Category</p>
             <div className="flex mt-4 relative items-center">
@@ -71,7 +73,7 @@ const CategoriesModal = ({ title, toggleModalExpense }) => {
                   className="bg-green-400 text-black py-3 px-10 rounded-xl font-medium hover:bg-green-300"
                   onClick={handleCreateCategory}
                 >
-                  Add
+                  {buttonType}
                 </button>
               </div>
             </div>

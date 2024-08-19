@@ -9,7 +9,7 @@ import { deleteCategory } from "../../redux/authOperations";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-const CategoryList = () => {
+const CategoryList = ({ handleButtonChange }) => {
   const categoryList = useSelector(
     (state) => state.auth.user.categories.expenses
   );
@@ -33,7 +33,9 @@ const CategoryList = () => {
           {categoryName}
           <div className="flex mr-4 gap-3">
             <Icons icon={check} />
-            <Icons icon={edit} />
+            <button onClick={handleButtonChange}>
+              <img src={edit} alt="" />
+            </button>
             <Icons
               icon={trash}
               handleDeleteCategory={handleDeleteCategory}
