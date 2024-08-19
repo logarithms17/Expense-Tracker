@@ -17,6 +17,8 @@ const CategoriesModal = ({
 
   const dispatch = useDispatch();
 
+  console.log(title);
+
   const handleChange = (e) => {
     setNewCategory(e.target.value);
   };
@@ -28,36 +30,36 @@ const CategoriesModal = ({
   };
 
   const handleCreateCategory = async () => {
-    if (buttonType === "Add") {
-      if (newCategory.trim() === "") {
-        console.log("Category name cannot be empty");
-        return;
-      }
-
-      try {
-        const result = await dispatch(
-          createCategory({ type: "expenses", categoryName: newCategory })
-        ).unwrap();
-        console.log("Category created successfully:", result);
-        setNewCategory("");
-      } catch (error) {
-        console.error("Failed to create category:", error);
-      }
+    if (newCategory.trim() === "") {
+      console.log("Category name cannot be empty");
+      return;
     }
 
-    if (buttonType === "Edit" && editingCategoryId) {
-      try {
-        console.log(editingCategoryId, newCategory);
+    try {
+      if (buttonType === "Add") {
         const result = await dispatch(
-          updateCategory({ id: editingCategoryId, categoryName: newCategory })
+          createCategory({
+            type: title.toLowerCase(), // "expenses" or "incomes"
+            categoryName: newCategory,
+          })
+        ).unwrap();
+        console.log("Category created successfully:", result);
+      } else if (buttonType === "Edit" && editingCategoryId) {
+        const result = await dispatch(
+          updateCategory({
+            id: editingCategoryId,
+            categoryName: newCategory,
+          })
         ).unwrap();
         console.log("Category updated successfully:", result);
-        // Clear the input field after the operation
-        setNewCategory("");
-        setButtonType("Add"); // Reset to Add mode after editing
-      } catch (error) {
-        console.error("Failed to create or edit category:", error);
       }
+
+      // Clear the input field and reset the form state
+      setNewCategory("");
+      setButtonType("Add");
+      setEditingCategoryId(null);
+    } catch (error) {
+      console.error("Failed to create or edit category:", error);
     }
   };
 
