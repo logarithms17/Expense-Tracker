@@ -8,8 +8,9 @@ import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/ExpenseTable";
 import { useSelector, useDispatch } from "react-redux";
 import { getTransactions } from "../../redux/authOperations";
+import UserSetsModal from "../Modals/UserSetsModal";
 
-const AllIncomeTab = ({ title }) => {
+const AllIncomeTab = ({ title, showModal, toggleModal }) => {
   const dispatch = useDispatch();
 
   const expenseTotal = useSelector(
@@ -33,6 +34,9 @@ const AllIncomeTab = ({ title }) => {
   return (
     <>
       <div className="flex items-end justify-between">
+        {showModal && (
+          <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
+        )}
         <div>
           <h1 className="mt-[59px]">{title}</h1>
           <p className="description mt-5">

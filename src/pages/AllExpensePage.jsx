@@ -13,10 +13,22 @@ const AllExpensePage = () => {
 
   const dynamicTab = () => {
     if (pathname === "/all-expense") {
-      return <AllExpenseTab title="All Expense" />;
+      return (
+        <AllExpenseTab
+          title="All Expense"
+          showModal={showModal}
+          toggleModal={toggleModal}
+        />
+      );
     }
     if (pathname === "/all-income") {
-      return <AllIncomeTab title="All Income" />;
+      return (
+        <AllIncomeTab
+          title="All Income"
+          showModal={showModal}
+          toggleModal={toggleModal}
+        />
+      );
     }
   };
 
