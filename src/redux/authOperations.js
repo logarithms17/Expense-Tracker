@@ -274,3 +274,31 @@ export const createTransaction = createAsyncThunk(
         }
     }
 )
+
+// GET USERS TRANSACTION
+
+export const getTransactions = createAsyncThunk(
+    "auth/getTransactions",
+    async ({type}, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+            const response = await axios.get(`/transactions/${type}`, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Pass the token in the header
+                }
+            });
+            console.log(response.data)
+            return response.data;
+        } catch (error) {
+            console.log("Error occurred during getTransactions API call: ", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+

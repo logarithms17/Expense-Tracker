@@ -30,6 +30,9 @@ const Dashboard = ({ showModal, toggleModal }) => {
     (state) => state.auth.user.transactionsTotal.incomes
   );
 
+  const transaction = useSelector((state) => state.auth);
+  console.log(transaction);
+
   // TOGGLE EXPENSE CATEGORIES MODAL
   const toggleModalExpense = () => {
     setShowCategoriesExpenseModal(!showCategoriesExpenseModal);

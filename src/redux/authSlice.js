@@ -1,25 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory, createTransaction } from "./authOperations";
-import { act } from "react";
+import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory, createTransaction, getTransactions } from "./authOperations";
 
 const initialState = {
-    user: { name: null, email: null },
+    transactions: { data: [], status: 'idle', error: null },
+    user: {
+        name: null,
+        email: null,
+        transactionsTotal: {
+            incomes: 0,
+            expenses: 0
+        },
+    },
     avatarUrl: null,
     token: localStorage.getItem("authToken") || null,
     refreshToken: localStorage.getItem("refreshToken") || null,
     isLoggedIn: false,
     isRefreshing: false,
-
     categories: {
-        incomes: [{
-            categoryName: null,
-            type: null,
-        } 
-        ],
+        incomes: [],
         expenses: [],
-    }
-    
+    },
 };
 
 const authSlice = createSlice({
@@ -168,6 +169,14 @@ const authSlice = createSlice({
 
                 state.user.transactions.push(action.payload);
             })
+            .addCase(getTransactions.fulfilled, (state, action) => {
+        state.transactions.data = action.payload;
+        state.transactions.status = 'succeeded';
+      })
+      .addCase(getTransactions.rejected, (state, action) => {
+        state.transactions.status = 'failed';
+        state.transactions.error = action.error.message;
+      });
             },
         });
 

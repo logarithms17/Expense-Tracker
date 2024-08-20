@@ -6,8 +6,17 @@ import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/ExpenseTable";
+import { useSelector } from "react-redux";
 
 const AllIncomeTab = ({ title }) => {
+  const expenseTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.expenses
+  );
+
+  const incomeTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.incomes
+  );
+
   const data = [
     {
       category: "Salary",
@@ -31,6 +40,7 @@ const AllIncomeTab = ({ title }) => {
 
         <div className="flex gap-6">
           <FinanceWidget
+            total={incomeTotal}
             title="Total Income"
             src={arrowIcon}
             percentage=""
@@ -38,6 +48,7 @@ const AllIncomeTab = ({ title }) => {
             textColor="text-white"
           />
           <FinanceWidget
+            total={expenseTotal}
             title="Total Expense"
             src={arrowDownIcon}
             percentage=""

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
@@ -7,37 +7,31 @@ import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/ExpenseTable";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getTransactions } from "../../redux/authOperations";
+
 const AllExpenseTab = ({ title }) => {
-  const data = [
-    {
-      category: "Cinema",
-      comment: "John Week 4",
-      date: "Sn, 03.03.2023",
-      time: "14:30",
-      sum: "150 / UAH",
-    },
-    {
-      category: "Products",
-      comment: "Milk, Bread...",
-      date: "Sn, 18.03.2023",
-      time: "10:50",
-      sum: "1500 / UAH",
-    },
-    {
-      category: "Clothes",
-      comment: "Tshirt",
-      date: "Sn, 20.03.2023",
-      time: "17:25",
-      sum: "5000 / UAH",
-    },
-    {
-      category: "Cinema",
-      comment: "Avatar 2",
-      date: "Sn, 29.03.2023",
-      time: "20:30",
-      sum: "150 / UAH",
-    },
-  ];
+  const dispatch = useDispatch();
+  const expenseTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.expenses
+  );
+
+  const incomeTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.incomes
+  );
+
+  const data = useSelector((state) => {
+    console.log(state.auth);
+    return state.auth.transactions.data;
+  });
+  console.log(data);
+  // Assuming that state.auth.transactions holds the fetched data, status, and error
+
+  useEffect(() => {
+    // Dispatch the action to fetch expenses on component mount
+    dispatch(getTransactions({ type: "expenses" }));
+  }, [dispatch]);
+
   return (
     <>
       <div className="flex items-end justify-between">
@@ -51,6 +45,7 @@ const AllExpenseTab = ({ title }) => {
 
         <div className="flex gap-6">
           <FinanceWidget
+            total={incomeTotal}
             title="Total Income"
             src={arrowIcon}
             percentage=""
@@ -58,6 +53,7 @@ const AllExpenseTab = ({ title }) => {
             textColor="text-white"
           />
           <FinanceWidget
+            total={expenseTotal}
             title="Total Expense"
             src={arrowDownIcon}
             percentage=""
