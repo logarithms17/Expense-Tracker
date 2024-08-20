@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { createTransaction } from "../../redux/authOperations";
+import { createTransaction, refreshUser } from "../../redux/authOperations";
 
 const TransactionForm = ({
   handleCategoryClick,
@@ -45,6 +45,8 @@ const TransactionForm = ({
     };
 
     dispatch(createTransaction(transaction));
+
+    dispatch(refreshUser());
 
     e.target.reset();
   };

@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import edit from "../../assets/edit-2.svg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ButtonWithIcon from "../Buttons/ButtonWithIcon";
-import { deleteTransaction } from "../../redux/authOperations";
+import {
+  deleteTransaction,
+  getTransactions,
+  refreshUser,
+} from "../../redux/authOperations";
 import { useDispatch } from "react-redux";
 
 const Table = ({ data, handleOpenModal }) => {
@@ -14,7 +18,11 @@ const Table = ({ data, handleOpenModal }) => {
     console.log(id, type);
     console.log("deleted");
 
-    dispatch(deleteTransaction({ id, type }));
+    dispatch(deleteTransaction({ id, type })).then(() => {
+      console.log("deleted");
+      dispatch(refreshUser());
+      console.log("fetched");
+    });
   };
   console.log(data);
   return (

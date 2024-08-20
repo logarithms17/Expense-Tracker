@@ -5,9 +5,9 @@ import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 
 import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
-import Table from "../Table/ExpenseTable";
+import Table from "../Table/Table";
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions } from "../../redux/authOperations";
+import { getTransactions, refreshUser } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
 
 const AllIncomeTab = ({ title, showModal, toggleModal }) => {
@@ -20,9 +20,9 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
   const incomeTotal = useSelector(
     (state) => state.auth.user.transactionsTotal.incomes
   );
+  console.log(incomeTotal);
 
   const data = useSelector((state) => {
-    console.log(state.auth);
     return state.auth.transactions.data;
   });
 
@@ -78,4 +78,6 @@ export default AllIncomeTab;
 
 AllIncomeTab.propTypes = {
   title: PropTypes.string.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };

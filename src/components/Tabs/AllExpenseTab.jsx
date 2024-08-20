@@ -5,7 +5,7 @@ import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 
 import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
-import Table from "../Table/ExpenseTable";
+import Table from "../Table/Table";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getTransactions, updateTransaction } from "../../redux/authOperations";

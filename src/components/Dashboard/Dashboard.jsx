@@ -107,7 +107,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
         </p>
         <div className="grid grid-cols-2 gap-6 my-8">
           <FinanceWidget
-            total={expenseTotal}
+            total={incomeTotal}
             title="Total Income"
             src={arrowIcon}
             percentage=""
@@ -115,7 +115,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
             textColor="text-white"
           />
           <FinanceWidget
-            total={incomeTotal}
+            total={expenseTotal}
             title="Total Expense"
             src={arrowDownIcon}
             percentage=""
