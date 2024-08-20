@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
@@ -6,9 +6,12 @@ import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/ExpenseTable";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getTransactions } from "../../redux/authOperations";
 
 const AllIncomeTab = ({ title }) => {
+  const dispatch = useDispatch();
+
   const expenseTotal = useSelector(
     (state) => state.auth.user.transactionsTotal.expenses
   );
@@ -17,15 +20,15 @@ const AllIncomeTab = ({ title }) => {
     (state) => state.auth.user.transactionsTotal.incomes
   );
 
-  const data = [
-    {
-      category: "Salary",
-      comment: "It Company",
-      date: "Sn, 03.03.2023",
-      time: "14:30",
-      sum: "35000 / UAH",
-    },
-  ];
+  const data = useSelector((state) => {
+    console.log(state.auth);
+    return state.auth.transactions.data;
+  });
+
+  useEffect(() => {
+    // Dispatch the action to fetch expenses on component mount
+    dispatch(getTransactions({ type: "incomes" }));
+  }, [dispatch]);
 
   return (
     <>

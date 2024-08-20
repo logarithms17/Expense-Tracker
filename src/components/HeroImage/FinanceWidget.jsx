@@ -8,7 +8,6 @@ const FinanceWidget = ({
   src,
   total,
 }) => {
-  console.log(total);
   const formattedExpense = total.toLocaleString(undefined, {
     minimumFractionDigits: 3,
     maximumFractionDigits: 3,

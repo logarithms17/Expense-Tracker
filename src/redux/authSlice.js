@@ -170,7 +170,9 @@ const authSlice = createSlice({
                 state.user.transactions.push(action.payload);
             })
             .addCase(getTransactions.fulfilled, (state, action) => {
-        state.transactions.data = action.payload;
+                
+                state.transactions.data = action.payload;
+                console.log(state.transactions.data)
         state.transactions.status = 'succeeded';
       })
       .addCase(getTransactions.rejected, (state, action) => {
