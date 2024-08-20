@@ -1,6 +1,19 @@
 import PropTypes from "prop-types";
 
-const FinanceWidget = ({ title, styles, percentage, textColor, src }) => {
+const FinanceWidget = ({
+  title,
+  styles,
+  percentage,
+  textColor,
+  src,
+  total,
+}) => {
+  console.log(total);
+  const formattedExpense = total.toLocaleString(undefined, {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  });
+
   return (
     <div className={styles}>
       <img
@@ -11,7 +24,9 @@ const FinanceWidget = ({ title, styles, percentage, textColor, src }) => {
       <div className="leading-6">
         <p className="text-neutral-500 text-[14px]">{title}</p>
         <div className="flex items-center justify-center">
-          <p className={`${textColor} font-bold text-2xl`}>$632.000</p>
+          <p className={`${textColor} font-bold text-2xl`}>
+            ${formattedExpense}
+          </p>
           <p className="text-green-500 text-[13px] px-3 ml-3 rounded-xl bg-green-100 font-medium">
             {percentage}
           </p>
@@ -29,4 +44,5 @@ FinanceWidget.propTypes = {
   src: PropTypes.string.isRequired,
   styles: PropTypes.string.isRequired,
   textColor: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };

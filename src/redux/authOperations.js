@@ -77,6 +77,7 @@ export const refreshUser = createAsyncThunk(
 
         try {
             const response = await axios.get("/users/current");
+            console.log(response.data)
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
@@ -207,6 +208,7 @@ export const deleteCategory = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log(response)
             
             // Assuming the response doesn't have a body and just returns status code 204
             return id;  // Return the ID for further processing in the slice

@@ -10,6 +10,7 @@ import { Notify } from "notiflix";
 
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const Dashboard = ({ showModal, toggleModal }) => {
   const [categoryInput, setCategoryInput] = useState("");
@@ -20,6 +21,14 @@ const Dashboard = ({ showModal, toggleModal }) => {
   // Toggle Categories Incomes Modal
   const [showCategoriesIncomeModal, setShowCategoriesIncomeModal] =
     useState(false);
+
+  const expenseTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.expenses
+  );
+
+  const incomeTotal = useSelector(
+    (state) => state.auth.user.transactionsTotal.incomes
+  );
 
   // TOGGLE EXPENSE CATEGORIES MODAL
   const toggleModalExpense = () => {
@@ -96,6 +105,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
         </p>
         <div className="grid grid-cols-2 gap-6 my-8">
           <FinanceWidget
+            total={expenseTotal}
             title="Total Income"
             src={arrowIcon}
             percentage=""
@@ -103,6 +113,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
             textColor="text-white"
           />
           <FinanceWidget
+            total={incomeTotal}
             title="Total Expense"
             src={arrowDownIcon}
             percentage=""

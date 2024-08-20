@@ -33,6 +33,7 @@ const TransactionForm = ({
     const sum = formData.get("sum");
     const comment = formData.get("comment");
     const type = formData.get("type");
+    console.log(category);
 
     const transaction = {
       date,
