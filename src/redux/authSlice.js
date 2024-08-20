@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory, createTransaction, getTransactions } from "./authOperations";
+import { register, logIn, logOut, refreshUser, updateAvatar, updateUser, removeAvatar, createCategory, deleteCategory, updateCategory, createTransaction, getTransactions, updateTransaction, deleteTransaction } from "./authOperations";
 
 const initialState = {
     transactions: { data: [], status: 'idle', error: null },
@@ -173,12 +173,45 @@ const authSlice = createSlice({
                 
                 state.transactions.data = action.payload;
                 console.log(state.transactions.data)
-        state.transactions.status = 'succeeded';
-      })
-      .addCase(getTransactions.rejected, (state, action) => {
-        state.transactions.status = 'failed';
-        state.transactions.error = action.error.message;
-      });
+                state.transactions.status = 'succeeded';
+            })
+            .addCase(getTransactions.rejected, (state, action) => {
+                state.transactions.status = 'failed';
+                state.transactions.error = action.error.message;
+            })
+            .addCase(updateTransaction.fulfilled, (state, action) => {
+                console.log('Action payload:', action.payload); // Should log the updated transaction
+                console.log('Current transactions:', state.user.transactions); // Should log the current transactions array
+
+                if (!state.user.transactions) {
+                    console.log('Initializing transactions array');
+                    state.user.transactions = []; // Initialize transactions if undefined
+                }
+
+                state.user.transactions = state.user.transactions.map((transaction) => {
+                    if (transaction._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return transaction;
+                });
+            })
+            .addCase(updateTransaction.rejected, (state, action) => {
+                console.log(action);
+                console.log("Transaction update failed:", action.error);
+            })
+            .addCase(deleteTransaction.fulfilled, (state, action) => {
+                console.log("Action payload:", action.payload); // Should log the deleted transaction
+                console.log("Current transactions:", state.user.transactions); // Should log the current transactions array
+
+                if (!state.user.transactions) {
+                    console.log("Initializing transactions array");
+                    state.user.transactions = []; // Initialize transactions if undefined
+                }
+
+                state.transactions.data = state.transactions.data.filter(
+                    (transaction) => transaction._id !== action.payload
+                );
+            })
             },
         });
 

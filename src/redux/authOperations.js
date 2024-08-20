@@ -77,7 +77,6 @@ export const refreshUser = createAsyncThunk(
 
         try {
             const response = await axios.get("/users/current");
-            console.log(response.data)
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response?.data || error.message);
@@ -302,3 +301,68 @@ export const getTransactions = createAsyncThunk(
     }
 )
 
+// UPDATE USER TRANSACTION
+
+export const updateTransaction = createAsyncThunk(
+    'auth/updateTransaction',
+    async ({ id, type }, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token available.");
+        }
+
+        try {
+          const response = await axios.patch(
+              `/transactions/${type}/${id}`, {
+                  headers: {
+                      Authorization: `Bearer ${token}` // Pass the token in the header
+                  }
+          }
+            );
+            console.log(response.data)
+            return response.data;
+        } catch (error) {
+          console.error('Error occurred during updateTransaction API call: ', error);
+          return thunkAPI.rejectWithValue(error.response.data);
+        }
+
+    }
+)
+
+// DELETE USER TRANSACTION
+
+export const deleteTransaction = createAsyncThunk(
+    "auth/deleteTransaction",
+    async ({ id, type }, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
+
+        if (!token) {
+            return thunkAPI.rejectWithValue("No access token provided.");
+        }
+
+        if (!id) {
+            return thunkAPI.rejectWithValue("Transaction ID is missing.");
+        }
+
+        try {
+            // Make the API request with id as part of the path
+            const response = await axios.delete(`/transactions/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                params: {
+                    type: type,  // Optionally pass type as a query parameter if necessary
+                }
+            });
+
+            console.log(response);
+            return id;  // Return the ID for further processing in the slice
+        } catch (error) {
+            console.log("Error occurred during deleteTransaction API call:", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);

@@ -7,7 +7,7 @@ const HeroImage = () => {
   return (
     <section className="relative flex justify-center items-center">
       <FinanceWidget
-        total="632.000"
+        total={632.0}
         title="Your balance"
         percentage="+1.29%"
         styles="heroImageWidget"

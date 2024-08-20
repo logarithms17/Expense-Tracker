@@ -8,7 +8,7 @@ import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/ExpenseTable";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions } from "../../redux/authOperations";
+import { getTransactions, updateTransaction } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
 
 const AllExpenseTab = ({ title, showModal, toggleModal }) => {
@@ -26,6 +26,13 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
     return state.auth.transactions.data;
   });
   console.log(data);
+
+  const handleOpenModal = () => {
+    console.log("edit");
+
+    dispatch(updateTransaction({ id: 1, type: "incomes" }));
+  };
+
   // Assuming that state.auth.transactions holds the fetched data, status, and error
 
   useEffect(() => {
@@ -35,10 +42,11 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
 
   return (
     <>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between relative">
         {showModal && (
           <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
         )}
+        <div className="absolute"></div>
         <div>
           <h1 className="mt-[59px]">{title}</h1>
           <p className="description mt-5">
@@ -69,7 +77,7 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
       <div>
         <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px] ">
           <SearchBar />
-          <Table data={data} />
+          <Table data={data} handleOpenModal={handleOpenModal} />
         </div>
       </div>
     </>
@@ -80,4 +88,6 @@ export default AllExpenseTab;
 
 AllExpenseTab.propTypes = {
   title: PropTypes.string.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
