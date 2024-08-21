@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
   const userCurrency = useSelector((state) => state.auth.user.currency);
