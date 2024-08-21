@@ -155,15 +155,11 @@ const authSlice = createSlice({
                 console.log("Category update failed:", action.error);
             })
             .addCase(createTransaction.fulfilled, (state, action) => {
-    console.log(state.transactions.data); // Logs current transactions
-    console.log(state.user); // Logs current user data
     
     // Add the new transaction to the transactions.data array
     state.transactions.data.push(action.payload);
 })
             .addCase(getTransactions.fulfilled, (state, action) => {
-    console.log(state.transactions.data); // Logs current transactions
-    console.log(action.payload); // Logs fetched transactions
 
     // Replace the current transactions with the fetched ones
     state.transactions.data = action.payload;
@@ -183,7 +179,6 @@ const authSlice = createSlice({
         );
 
         if (index !== -1) {
-            console.log("Transaction exists");
             state.transactions.data[index] = updatedTransaction;
         } else {
             console.log("Transaction does not exist, adding it");

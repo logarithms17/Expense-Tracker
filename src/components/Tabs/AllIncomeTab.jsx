@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
@@ -7,11 +7,17 @@ import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/Table";
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions, updateTransaction } from "../../redux/authOperations";
+import { getTransactions } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
+import TransactionFormModal from "../Modals/TransactionFormModal";
 
 const AllIncomeTab = ({ title, showModal, toggleModal }) => {
+  const [showTransactionForm, setShowTransactionForm] = useState(false);
+  const [transactionsData, setTransactionsData] = useState(null);
+
   const dispatch = useDispatch();
+
+  const toggleFormModal = () => setShowTransactionForm((prev) => !prev);
 
   const expenseTotal = useSelector(
     (state) => state.auth.user.transactionsTotal.expenses
@@ -25,8 +31,9 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
     return state.auth.transactions.data;
   });
 
-  const handleOpenModal = () => {
-    dispatch(updateTransaction({ id: 1, type: "incomes" }));
+  const handleOpenModal = (item) => {
+    setShowTransactionForm(true);
+    setTransactionsData(item);
   };
 
   useEffect(() => {
@@ -34,12 +41,26 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
     dispatch(getTransactions({ type: "incomes" }));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!showTransactionForm) {
+      dispatch(getTransactions({ type: "incomes" }));
+    }
+  }, [showTransactionForm, dispatch]);
+
   return (
     <>
       <div className="flex items-end justify-between">
         {showModal && (
           <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
         )}
+
+        {showTransactionForm && (
+          <TransactionFormModal
+            toggleFormModal={toggleFormModal}
+            transactionsData={transactionsData}
+          />
+        )}
+
         <div>
           <h1 className="mt-[59px]">{title}</h1>
           <p className="description mt-5">

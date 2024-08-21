@@ -10,7 +10,7 @@ import Table from "../Table/Table";
 import TransactionFormModal from "../Modals/TransactionFormModal";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions, updateTransaction } from "../../redux/authOperations";
+import { getTransactions } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
 
 const AllExpenseTab = ({ title, showModal, toggleModal }) => {
@@ -32,6 +32,7 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   const data = useSelector((state) => {
     return state.auth.transactions.data;
   });
+
 
   const handleOpenModal = (item) => {
     setShowTransactionForm(true);
