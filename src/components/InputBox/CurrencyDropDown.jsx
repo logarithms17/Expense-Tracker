@@ -9,8 +9,6 @@ const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
 
   const [currency, setCurrency] = useState(capitalizeCurrency);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     setCurrency(capitalizeCurrency); // Update the currency state after the component mounts
   }, [capitalizeCurrency]);

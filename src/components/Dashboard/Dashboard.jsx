@@ -5,7 +5,6 @@ import ExpenseChart from "../ExpenseChart/ExpenseChart";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import CategoriesModal from "../Modals/CategoriesModal";
 import UserSetsModal from "../Modals/UserSetsModal";
-import LogoutModal from "../Modals/LogoutModal";
 import { Notify } from "notiflix";
 
 import { useState, useEffect } from "react";
@@ -104,7 +103,6 @@ const Dashboard = ({ showModal, toggleModal }) => {
       {showModal && (
         <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
       )}
-      {/* <LogoutModal /> */}
 
       <section>
         <h1 className="mt-[59px]">Expense Log</h1>

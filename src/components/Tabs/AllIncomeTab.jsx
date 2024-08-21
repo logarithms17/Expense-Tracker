@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/Table";
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions, refreshUser } from "../../redux/authOperations";
+import { getTransactions } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
 
 const AllIncomeTab = ({ title, showModal, toggleModal }) => {
