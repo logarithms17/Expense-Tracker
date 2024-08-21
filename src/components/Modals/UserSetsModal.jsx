@@ -12,6 +12,7 @@ import {
   updateAvatar,
   updateUser,
   removeAvatar,
+  refreshUser,
 } from "../../redux/authOperations";
 import CloseButton from "../Buttons/CloseButton";
 
@@ -27,8 +28,14 @@ const extractAvatarId = (avatarUrl) => {
 };
 
 const UserSetsModal = ({ title, toggleModal }) => {
-  const userName = useSelector((state) => state.auth.user.name);
-  const userAvatar = useSelector((state) => state.auth.user.avatarUrl);
+  const userName = useSelector((state) => {
+    console.log(state.auth.user);
+    return state.auth.user.name;
+  });
+  const userAvatar = useSelector((state) => {
+    console.log(state.auth);
+    return state.auth.user.avatarUrl.avatarUrl;
+  });
 
   const [newName, setNewName] = useState(userName);
   const dispatch = useDispatch();
@@ -45,6 +52,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
     const formData = new FormData(form);
     const name = formData.get("name");
     const currency = formData.get("currency");
+    console.log(currency);
 
     if (!name) {
       Notify.failure("Please fill in all the fields");
@@ -57,6 +65,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
     }
 
     dispatch(updateUser({ name, currency }));
+    dispatch(updateAvatar(userAvatar));
     toggleModal();
   };
 

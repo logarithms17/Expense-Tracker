@@ -11,8 +11,9 @@ const initialState = {
             incomes: 0,
             expenses: 0
         },
+        avatarUrl: null,
     },
-    avatarUrl: null,
+    
     token: localStorage.getItem("authToken") || null,
     refreshToken: localStorage.getItem("refreshToken") || null,
     isLoggedIn: false,
@@ -61,13 +62,18 @@ const authSlice = createSlice({
                 state.isRefreshing = false;
             })
             .addCase(updateAvatar.fulfilled, (state, action) => {
-                state.user = action.payload;
+                console.log(action.payload)
+                console.log(state.user)
+                state.user.avatarUrl = action.payload;
             })
             .addCase(updateAvatar.rejected, (state, action) => {
                 console.log(action);
             })
             .addCase(updateUser.fulfilled, (state, action) => {
-                state.user = action.payload;
+                console.log(action.payload)
+                const {currency, name} = action.payload
+                state.user.name = name;
+                state.user.currency = currency;
             })
             .addCase(updateUser.rejected, (state, action) => {
                 console.log(action);

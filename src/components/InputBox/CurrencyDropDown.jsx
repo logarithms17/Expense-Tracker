@@ -1,8 +1,14 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+
 const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
   const [currency, setCurrency] = useState("UAH");
+
+  const user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
 
   return (
     <select

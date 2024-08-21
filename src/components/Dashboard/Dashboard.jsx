@@ -8,9 +8,10 @@ import UserSetsModal from "../Modals/UserSetsModal";
 import LogoutModal from "../Modals/LogoutModal";
 import { Notify } from "notiflix";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { refreshUser } from "../../redux/authOperations";
 
 const Dashboard = ({ showModal, toggleModal }) => {
   const [categoryInput, setCategoryInput] = useState("");
@@ -22,15 +23,21 @@ const Dashboard = ({ showModal, toggleModal }) => {
   const [showCategoriesIncomeModal, setShowCategoriesIncomeModal] =
     useState(false);
 
-  const expenseTotal = useSelector(
-    (state) => state.auth.user.transactionsTotal.expenses
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Dispatch the action to fetch expenses on component mount
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  const expenseTotal = useSelector((state) => {
+    console.log(state.auth.user);
+    return state.auth.user.transactionsTotal.expenses;
+  });
 
   const incomeTotal = useSelector(
     (state) => state.auth.user.transactionsTotal.incomes
   );
-
-  const transaction = useSelector((state) => state.auth);
 
   // TOGGLE EXPENSE CATEGORIES MODAL
   const toggleModalExpense = () => {
