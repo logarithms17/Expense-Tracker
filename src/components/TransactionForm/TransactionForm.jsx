@@ -17,13 +17,11 @@ const TransactionForm = ({
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    console.log(e.target);
 
     const date = formData.get("date");
     const time = formData.get("time");
@@ -31,7 +29,6 @@ const TransactionForm = ({
     const sum = formData.get("sum");
     const comment = formData.get("comment");
     const type = formData.get("type");
-    console.log(category);
 
     const transaction = {
       date,

@@ -11,16 +11,10 @@ const Table = ({ data, handleOpenModal }) => {
   const dispatch = useDispatch();
 
   const handleDeleteTransaction = (id, type) => {
-    console.log(id, type);
-    console.log("deleted");
-
     dispatch(deleteTransaction({ id, type })).then(() => {
-      console.log("deleted");
       dispatch(refreshUser());
-      console.log("fetched");
     });
   };
-  console.log(data);
   return (
     <div className=" pt-5 h-[350px] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-900 overflow-hidden overflow-y-scroll scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl">
       <div className="h-[400px] min-w-full text-left text-sm font-light text-white overflow-hidden grid grid-rows-[auto_1fr]">

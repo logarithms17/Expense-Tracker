@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/Table";
 import { useSelector, useDispatch } from "react-redux";
-import { getTransactions } from "../../redux/authOperations";
+import { getTransactions, updateTransaction } from "../../redux/authOperations";
 import UserSetsModal from "../Modals/UserSetsModal";
 
 const AllIncomeTab = ({ title, showModal, toggleModal }) => {
@@ -20,11 +20,14 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
   const incomeTotal = useSelector(
     (state) => state.auth.user.transactionsTotal.incomes
   );
-  console.log(incomeTotal);
 
   const data = useSelector((state) => {
     return state.auth.transactions.data;
   });
+
+  const handleOpenModal = () => {
+    dispatch(updateTransaction({ id: 1, type: "incomes" }));
+  };
 
   useEffect(() => {
     // Dispatch the action to fetch expenses on component mount
@@ -67,7 +70,7 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
       <div>
         <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px]">
           <SearchBar />
-          <Table data={data} />
+          <Table data={data} handleOpenModal={handleOpenModal} />
         </div>
       </div>
     </>

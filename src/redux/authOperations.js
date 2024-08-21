@@ -31,7 +31,6 @@ export const logIn = createAsyncThunk(
         try {
             const response = await axios.post("/auth/login", { email, password })
             setAuthHeader(response.data.accessToken)
-            console.log(response.data)
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -174,7 +173,6 @@ export const createCategory = createAsyncThunk(
                     Authorization: `Bearer ${token}` // Pass the token in the header
                 }
             });
-            console.log("Category created successfully: ", response.data);
             return response.data;
         } catch (error) {
             console.log("Error occurred during createCategory API call: ", error.response?.data || error.message);
@@ -208,7 +206,6 @@ export const deleteCategory = createAsyncThunk(
                 }
             });
             console.log(response)
-            
             // Assuming the response doesn't have a body and just returns status code 204
             return id;  // Return the ID for further processing in the slice
         } catch (error) {
@@ -265,7 +262,6 @@ export const createTransaction = createAsyncThunk(
                     Authorization: `Bearer ${token}` // Pass the token in the header
                 }
             });
-            console.log("Transaction created successfully: ", response.data);
             return response.data;
         } catch (error) {
             console.log("Error occurred during createTransaction API call: ", error.response?.data || error.message);
@@ -292,7 +288,7 @@ export const getTransactions = createAsyncThunk(
                     Authorization: `Bearer ${token}` // Pass the token in the header
                 }
             });
-            console.log(response.data)
+
             return response.data;
         } catch (error) {
             console.log("Error occurred during getTransactions API call: ", error.response?.data || error.message);
@@ -321,7 +317,6 @@ export const updateTransaction = createAsyncThunk(
                   }
           }
             );
-            console.log(response.data)
             return response.data;
         } catch (error) {
           console.error('Error occurred during updateTransaction API call: ', error);
@@ -357,8 +352,7 @@ export const deleteTransaction = createAsyncThunk(
                     type: type,  // Optionally pass type as a query parameter if necessary
                 }
             });
-
-            console.log(response);
+            console.log(response)
             return id;  // Return the ID for further processing in the slice
         } catch (error) {
             console.log("Error occurred during deleteTransaction API call:", error.response?.data || error.message);

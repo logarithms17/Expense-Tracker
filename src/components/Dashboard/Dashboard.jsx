@@ -30,7 +30,6 @@ const Dashboard = ({ showModal, toggleModal }) => {
   }, [dispatch]);
 
   const expenseTotal = useSelector((state) => {
-    console.log(state.auth);
     return state.auth.user.transactionsTotal.expenses;
   });
 
@@ -50,13 +49,11 @@ const Dashboard = ({ showModal, toggleModal }) => {
 
   // Update the state when a radio button is selected
   const handleRadioChange = (e) => {
-    console.log(e.target.value);
     setSelectedTransactionType(e.target.value);
   };
 
   // TRIGGERS TO OPEN THE MODAL FOR CATEGORY
   const handleCategoryClick = () => {
-    console.log("clicked");
 
     if (selectedTransactionType === "") {
       Notify.warning("Please select a transaction type");

@@ -22,14 +22,10 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   );
 
   const data = useSelector((state) => {
-    console.log(state.auth);
     return state.auth.transactions.data;
   });
-  console.log(data);
 
   const handleOpenModal = () => {
-    console.log("edit");
-
     dispatch(updateTransaction({ id: 1, type: "incomes" }));
   };
 

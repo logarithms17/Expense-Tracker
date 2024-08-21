@@ -15,7 +15,6 @@ const FinanceWidget = ({
   });
 
   const currency = useSelector((state) => state.auth.user.currency);
-  console.log(currency);
 
   let symbol;
 

@@ -63,13 +63,11 @@ const authSlice = createSlice({
             })
             .addCase(updateAvatar.fulfilled, (state, action) => {
                 state.user.avatarUrl = action.payload.avatarUrl; // Store the avatar URL as a string
-                console.log(state.user.avatarUrl); // Log the updated avatar URL
             })
             .addCase(updateAvatar.rejected, (state, action) => {
                 console.log(action);
             })
             .addCase(updateUser.fulfilled, (state, action) => {
-                console.log(action.payload)
                 const {currency, name} = action.payload
                 state.user.name = name;
                 state.user.currency = currency;
@@ -93,7 +91,6 @@ const authSlice = createSlice({
                     state.user.categories.incomes.push(action.payload);
                 }
 
-                console.log("Category added:", action.payload);
             })
             .addCase(deleteCategory.fulfilled, (state, action) => {
                 const id = action.payload;
@@ -118,12 +115,9 @@ const authSlice = createSlice({
                 } else {
                     console.error("Categories object is undefined.");
                 }
-
-                console.log("Category deleted:", id);
             })
             .addCase(deleteCategory.rejected, (state, action) => {
                 // Log the error action for debugging
-                console.log(action);
 
                 // Optionally, store the error in the state for error handling in the UI
                 state.error = action.payload || "Category deletion failed";
@@ -153,22 +147,15 @@ const authSlice = createSlice({
                     } else {
                         console.error("Incomes is not an array or is undefined.");
                     }
-
-                    console.log("Category updated:", updatedCategory);
                 }
 
                 console.log("Category update failed:", action.error);
             })
             .addCase(updateCategory.rejected, (state, action) => {
-                console.log(action);
                 console.log("Category update failed:", action.error);
             })
             .addCase(createTransaction.fulfilled, (state, action) => {
-                console.log('Action payload:', action.payload); // Should log the new transaction
-                console.log('Current transactions:', state.user.transactions); // Should log the current transactions array
-
                 if (!state.user.transactions) {
-                    console.log('Initializing transactions array');
                     state.user.transactions = []; // Initialize transactions if undefined
                 }
 
@@ -177,7 +164,7 @@ const authSlice = createSlice({
             .addCase(getTransactions.fulfilled, (state, action) => {
                 
                 state.transactions.data = action.payload;
-                console.log(state.transactions.data)
+
                 state.transactions.status = 'succeeded';
             })
             .addCase(getTransactions.rejected, (state, action) => {
@@ -185,11 +172,7 @@ const authSlice = createSlice({
                 state.transactions.error = action.error.message;
             })
             .addCase(updateTransaction.fulfilled, (state, action) => {
-                console.log('Action payload:', action.payload); // Should log the updated transaction
-                console.log('Current transactions:', state.user.transactions); // Should log the current transactions array
-
                 if (!state.user.transactions) {
-                    console.log('Initializing transactions array');
                     state.user.transactions = []; // Initialize transactions if undefined
                 }
 
@@ -201,15 +184,12 @@ const authSlice = createSlice({
                 });
             })
             .addCase(updateTransaction.rejected, (state, action) => {
-                console.log(action);
+
                 console.log("Transaction update failed:", action.error);
             })
             .addCase(deleteTransaction.fulfilled, (state, action) => {
-                console.log("Action payload:", action.payload); // Should log the deleted transaction
-                console.log("Current transactions:", state.user.transactions); // Should log the current transactions array
 
                 if (!state.user.transactions) {
-                    console.log("Initializing transactions array");
                     state.user.transactions = []; // Initialize transactions if undefined
                 }
 

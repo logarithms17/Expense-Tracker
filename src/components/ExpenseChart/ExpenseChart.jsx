@@ -2,17 +2,20 @@ import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import CategoriesList from "./CategoriesList";
 
+import { getTransactions } from "../../redux/authOperations";
+import { useSelector } from "react-redux";
+
 const ExpenseChart = () => {
+  const user = useSelector((state) => state.auth.user);
+
   const data = [
-    { name: "Hobby", value: 45, color: "#00E676" },
-    { name: "Products", value: 35, color: "#1DE9B6" },
-    { name: "Cinema", value: 20, color: "#FFFFFF" },
-    { name: "Health", value: 10, color: "#757575" },
+    { name: "Hobby", value: 45 },
+    { name: "Products", value: 35 },
+    { name: "Cinema", value: 20 },
+    { name: "Health", value: 10 },
   ];
 
-  const colors = data.map((data) => data.color);
-
-  const COLORS = colors;
+  const COLORS = ["#00E676", "#1DE9B6", "#FFFFFF", "#757575"];
 
   return (
     <div
