@@ -76,7 +76,7 @@ const authSlice = createSlice({
                 console.log(action);
             })
             .addCase(removeAvatar.fulfilled, (state, action) => {
-                state.user = action.payload;
+                state.user.avatarUrl = action.payload;
             })
             .addCase(removeAvatar.rejected, (state, action) => {
                 console.log(action);
@@ -172,17 +172,17 @@ const authSlice = createSlice({
                 state.transactions.error = action.error.message;
             })
             .addCase(updateTransaction.fulfilled, (state, action) => {
-                if (!state.user.transactions) {
-                    state.user.transactions = []; // Initialize transactions if undefined
-                }
+    if (!state.user.transactions) {
+        state.user.transactions = []; // Initialize transactions if undefined
+    }
 
-                state.user.transactions = state.user.transactions.map((transaction) => {
-                    if (transaction._id === action.payload._id) {
-                        return action.payload;
-                    }
-                    return transaction;
-                });
-            })
+    if (action.payload && action.payload._id) {
+        const index = state.user.transactions.findIndex((transaction) => transaction._id === action.payload._id);
+        if (index !== -1) {
+            state.user.transactions[index] = action.payload; // Update the transaction in-place
+        }
+    }
+})
             .addCase(updateTransaction.rejected, (state, action) => {
 
                 console.log("Transaction update failed:", action.error);

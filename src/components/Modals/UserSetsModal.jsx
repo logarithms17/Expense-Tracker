@@ -19,7 +19,6 @@ import CloseButton from "../Buttons/CloseButton";
 const extractAvatarId = (avatarUrl) => {
   const regex = /\/avatar\/([^]+)\.webp$/;
   const match = avatarUrl.match(regex);
-  console.log(match);
   if (!match) {
     console.error("Failed to extract avatarId from URL:", avatarUrl);
     return null;
@@ -29,11 +28,9 @@ const extractAvatarId = (avatarUrl) => {
 
 const UserSetsModal = ({ title, toggleModal }) => {
   const userName = useSelector((state) => {
-    console.log(state.auth.user);
     return state.auth.user.name;
   });
   const userAvatar = useSelector((state) => {
-    console.log(state.auth);
     return state.auth.user.avatarUrl;
   });
 
@@ -54,7 +51,6 @@ const UserSetsModal = ({ title, toggleModal }) => {
     const formData = new FormData(form);
     const name = formData.get("name");
     const currency = formData.get("currency");
-    console.log(currency);
 
     if (!name) {
       Notify.failure("Please fill in all the fields");
@@ -72,10 +68,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
   };
 
   const handleRemoveAvatar = (avatarUrl) => {
-    console.log("triggered handleRemoveAvatar");
     const avatarId = extractAvatarId(avatarUrl);
-
-    console.log(avatarId);
 
     if (!avatarId) {
       console.error("Invalid avatarId. Cannot proceed with removal.");
@@ -84,15 +77,12 @@ const UserSetsModal = ({ title, toggleModal }) => {
 
     dispatch(removeAvatar(avatarId))
       .unwrap()
-      .then((data) => {
-        console.log("Avatar removed:", data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Failed to remove avatar:", error);
       });
 
     dispatch(updateAvatar(userIcon));
-    console.log("dispatched icon");
   };
 
   const handleOverlayClick = (e) => {
@@ -115,7 +105,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
           <div className="h-[100px] w-[100px] bg-neutral-950 flex items-center justify-center rounded-full">
             <img
               src={userAvatar}
-              alt="user-icon"
+              alt=""
               className="h-full w-full rounded-full object-cover"
             />
           </div>
@@ -133,7 +123,6 @@ const UserSetsModal = ({ title, toggleModal }) => {
                 className=""
                 id="avatarUpload"
                 onChange={(e) => {
-                  console.log(e.target.files);
                   return handleAvatarUpload(e.target.files[0]);
                 }}
               />

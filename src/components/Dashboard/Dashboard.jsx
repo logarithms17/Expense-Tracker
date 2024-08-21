@@ -54,7 +54,6 @@ const Dashboard = ({ showModal, toggleModal }) => {
 
   // TRIGGERS TO OPEN THE MODAL FOR CATEGORY
   const handleCategoryClick = () => {
-
     if (selectedTransactionType === "") {
       Notify.warning("Please select a transaction type");
       return;
@@ -105,7 +104,8 @@ const Dashboard = ({ showModal, toggleModal }) => {
         <h1 className="mt-[59px]">Expense Log</h1>
         <p className="description mt-5">
           Capture and organize every penny spent with ease! A clear view of you
-          financial habits at <br /> your fingertips.
+          financial habits
+          <br /> at your fingertips.
         </p>
         <div className="grid grid-cols-2 gap-6 my-8">
           <FinanceWidget

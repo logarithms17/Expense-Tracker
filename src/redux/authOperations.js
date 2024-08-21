@@ -301,7 +301,7 @@ export const getTransactions = createAsyncThunk(
 
 export const updateTransaction = createAsyncThunk(
     'auth/updateTransaction',
-    async ({ id, type }, thunkAPI) => {
+    async ({ type, id, transaction }, thunkAPI) => {
         const state = thunkAPI.getState();
         const token = state.auth.token;
 
@@ -310,21 +310,41 @@ export const updateTransaction = createAsyncThunk(
         }
 
         try {
-          const response = await axios.patch(
-              `/transactions/${type}/${id}`, {
-                  headers: {
-                      Authorization: `Bearer ${token}` // Pass the token in the header
-                  }
-          }
+            // Log request details for debugging
+            console.log({
+                url: `/transactions/${type}/${id}`,
+                data: {
+                    date: transaction.date,
+                    time: transaction.time,
+                    category: transaction.category._id, // Use the category ID if required
+                    sum: transaction.sum,
+                    comment: transaction.comment
+                },
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            const response = await axios.patch(
+                `/transactions/${type}/${id}`,
+                {
+                    date: transaction.date,
+                    time: transaction.time,
+                    category: transaction.category._id, // Ensure the category is in the expected format
+                    sum: transaction.sum,
+                    comment: transaction.comment,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             );
             return response.data;
         } catch (error) {
-          console.error('Error occurred during updateTransaction API call: ', error);
-          return thunkAPI.rejectWithValue(error.response.data);
+            console.error('Error occurred during updateTransaction API call: ', error);
+            return thunkAPI.rejectWithValue(error.response ? error.response.data : 'Unknown error');
         }
-
     }
-)
+);
 
 // DELETE USER TRANSACTION
 

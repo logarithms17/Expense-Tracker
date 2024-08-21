@@ -43,7 +43,7 @@ const Table = ({ data, handleOpenModal }) => {
                 <ButtonWithIcon
                   title="Edit"
                   icon={edit}
-                  handleOpenModal={handleOpenModal}
+                  handleOpenModal={() => handleOpenModal(item)}
                   id={item._id}
                   type={item.type}
                   aria-label={`Edit transaction ${item._id}`}
