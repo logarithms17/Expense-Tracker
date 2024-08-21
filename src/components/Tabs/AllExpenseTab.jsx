@@ -34,8 +34,6 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   });
 
   const handleOpenModal = (item) => {
-    console.log(item);
-
     setShowTransactionForm(true);
     setTransactionsData(item);
   };
@@ -48,7 +46,6 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("rerendered");
     if (!showTransactionForm) {
       dispatch(getTransactions({ type: "expenses" }));
     }

@@ -1,8 +1,5 @@
 import PrimaryButton from "../Buttons/PrimaryButton";
-import CurrencyInputBox from "../InputBox/CurrencyInputBox";
 import RadioInput from "../InputBox/RadioInput";
-import TimeInput from "../InputBox/TimeInput";
-import DateInput from "../InputBox/DateInput";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
@@ -57,8 +54,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
 
   const dispatch = useDispatch();
 
-  console.log(transactionsData);
-
   // HANDLE CURRENCY NAME
   const currency = useSelector((state) => state.auth.user.currency);
   const uppercaseCurrency = currency.toUpperCase();
@@ -85,7 +80,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
       type,
     };
 
-    console.log(transaction);
 
     dispatch(updateTransaction({ type, id, transaction }));
     dispatch(refreshUser());
@@ -105,20 +99,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
     setSelectedTransactionType(e.target.value);
   };
 
-  //   const handleCategoryClick = () => {
-  //     if (selectedTransactionType === "") {
-  //       Notify.warning("Please select a transaction type");
-  //       return;
-  //     }
-
-  //     if (selectedTransactionType === "expenses") {
-  //       setShowCategoriesExpenseModal(true);
-  //     }
-
-  //     if (selectedTransactionType === "incomes") {
-  //       setShowCategoriesIncomeModal(true);
-  //     }
-  //   };
 
   return (
     <>

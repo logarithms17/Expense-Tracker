@@ -155,31 +155,39 @@ const authSlice = createSlice({
                 console.log("Category update failed:", action.error);
             })
             .addCase(createTransaction.fulfilled, (state, action) => {
-                if (!state.user.transactions) {
-                    state.user.transactions = []; // Initialize transactions if undefined
-                }
-
-                state.user.transactions.push(action.payload);
-            })
+    console.log(state.transactions.data); // Logs current transactions
+    console.log(state.user); // Logs current user data
+    
+    // Add the new transaction to the transactions.data array
+    state.transactions.data.push(action.payload);
+})
             .addCase(getTransactions.fulfilled, (state, action) => {
-                
-                state.transactions.data = action.payload;
+    console.log(state.transactions.data); // Logs current transactions
+    console.log(action.payload); // Logs fetched transactions
 
-                state.transactions.status = 'succeeded';
-            })
-            .addCase(getTransactions.rejected, (state, action) => {
-                state.transactions.status = 'failed';
-                state.transactions.error = action.error.message;
-            })
+    // Replace the current transactions with the fetched ones
+    state.transactions.data = action.payload;
+    state.transactions.status = 'succeeded';
+})
+.addCase(getTransactions.rejected, (state, action) => {
+    state.transactions.status = 'failed';
+    state.transactions.error = action.error.message;
+})
             .addCase(updateTransaction.fulfilled, (state, action) => {
-    if (!state.user.transactions) {
-        state.user.transactions = []; // Initialize transactions if undefined
-    }
+    console.log(state.transactions.data); // Logs current transactions
 
     if (action.payload && action.payload._id) {
-        const index = state.user.transactions.findIndex((transaction) => transaction._id === action.payload._id);
+        const updatedTransaction = action.payload;
+        const index = state.transactions.data.findIndex(
+            (transaction) => transaction._id === updatedTransaction._id
+        );
+
         if (index !== -1) {
-            state.user.transactions[index] = action.payload; // Update the transaction in-place
+            console.log("Transaction exists");
+            state.transactions.data[index] = updatedTransaction;
+        } else {
+            console.log("Transaction does not exist, adding it");
+            state.transactions.data.push(updatedTransaction);
         }
     }
 })
