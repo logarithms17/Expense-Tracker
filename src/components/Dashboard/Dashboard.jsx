@@ -31,7 +31,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
   }, [dispatch]);
 
   const expenseTotal = useSelector((state) => {
-    console.log(state.auth.user);
+    console.log(state.auth);
     return state.auth.user.transactionsTotal.expenses;
   });
 

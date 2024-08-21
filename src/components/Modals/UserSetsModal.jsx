@@ -34,7 +34,7 @@ const UserSetsModal = ({ title, toggleModal }) => {
   });
   const userAvatar = useSelector((state) => {
     console.log(state.auth);
-    return state.auth.user.avatarUrl.avatarUrl;
+    return state.auth.user.avatarUrl;
   });
 
   const [newName, setNewName] = useState(userName);
@@ -44,8 +44,10 @@ const UserSetsModal = ({ title, toggleModal }) => {
     const formData = new FormData();
     formData.append("avatar", file);
     dispatch(updateAvatar(formData));
+    dispatch(refreshUser());
   };
 
+  // SUBMITS FORM
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;

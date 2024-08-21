@@ -62,10 +62,9 @@ const authSlice = createSlice({
                 state.isRefreshing = false;
             })
             .addCase(updateAvatar.fulfilled, (state, action) => {
-                console.log(action.payload)
-                console.log(state.user)
-                state.user.avatarUrl = action.payload;
-            })
+    state.user.avatarUrl = action.payload.avatarUrl; // Store the avatar URL as a string
+    console.log(state.user.avatarUrl); // Log the updated avatar URL
+})
             .addCase(updateAvatar.rejected, (state, action) => {
                 console.log(action);
             })

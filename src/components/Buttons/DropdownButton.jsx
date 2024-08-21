@@ -14,7 +14,7 @@ export default function DropdownButton({ toggleModal }) {
   const user = useSelector((state) => state.auth.user.name);
   const avatar = useSelector((state) => {
     console.log(state.auth);
-    return state.auth.user.avatarUrl.avatarUrl;
+    return state.auth.user.avatarUrl;
   });
 
   const handleLogout = () => {

@@ -1,14 +1,19 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
 const CurrencyDropDown = ({ display, border, extraData, textColor }) => {
-  const [currency, setCurrency] = useState("UAH");
+  const userCurrency = useSelector((state) => state.auth.user.currency);
+  const capitalizeCurrency = userCurrency.toUpperCase();
 
-  const user = useSelector((state) => state.auth.user);
+  const [currency, setCurrency] = useState(capitalizeCurrency);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setCurrency(capitalizeCurrency); // Update the currency state after the component mounts
+  }, [capitalizeCurrency]);
 
   return (
     <select
