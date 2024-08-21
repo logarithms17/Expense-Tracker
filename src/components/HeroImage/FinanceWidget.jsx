@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const FinanceWidget = ({
   title,
@@ -13,6 +14,19 @@ const FinanceWidget = ({
     maximumFractionDigits: 3,
   });
 
+  const currency = useSelector((state) => state.auth.user.currency);
+  console.log(currency);
+
+  let symbol;
+
+  if (currency === "uah") {
+    symbol = "₴";
+  } else if (currency === "usd") {
+    symbol = "$";
+  } else if (currency === "eur") {
+    symbol = "€";
+  }
+
   return (
     <div className={styles}>
       <img
@@ -24,7 +38,8 @@ const FinanceWidget = ({
         <p className="text-neutral-500 text-[14px]">{title}</p>
         <div className="flex items-center justify-center">
           <p className={`${textColor} font-bold text-2xl`}>
-            ${formattedExpense}
+            {symbol}
+            {formattedExpense}
           </p>
           <p className="text-green-500 text-[13px] px-3 ml-3 rounded-xl bg-green-100 font-medium">
             {percentage}
