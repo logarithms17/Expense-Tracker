@@ -169,8 +169,7 @@ const authSlice = createSlice({
                 state.transactions.status = 'failed';
                 state.transactions.error = action.error.message;
             })
-                        .addCase(updateTransaction.fulfilled, (state, action) => {
-                console.log(state.transactions.data); // Logs current transactions
+            .addCase(updateTransaction.fulfilled, (state, action) => {
 
                 if (action.payload && action.payload._id) {
                     const updatedTransaction = action.payload;

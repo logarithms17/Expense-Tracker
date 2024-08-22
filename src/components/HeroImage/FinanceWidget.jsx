@@ -28,7 +28,6 @@ const FinanceWidget = ({
   }
 
   const handleClick = () => {
-    console.log("entered");
     if (title === "Total Expense") {
       setChartType("expenses");
     }

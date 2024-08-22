@@ -309,18 +309,6 @@ export const updateTransaction = createAsyncThunk(
         }
 
         try {
-            // Log request details for debugging
-            console.log({
-                url: `/transactions/${type}/${id}`,
-                data: {
-                    date: transaction.date,
-                    time: transaction.time,
-                    category: transaction.category._id, // Use the category ID if required
-                    sum: transaction.sum,
-                    comment: transaction.comment
-                },
-                headers: { Authorization: `Bearer ${token}` }
-            });
 
             const response = await axios.patch(
                 `/transactions/${type}/${id}`,

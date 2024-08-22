@@ -13,6 +13,7 @@ const TransactionForm = ({
   handleCategoryClick,
   handleRadioChange,
   categoryInput,
+  setCategoryInput,
 }) => {
   const dispatch = useDispatch();
 
@@ -40,6 +41,8 @@ const TransactionForm = ({
     dispatch(createTransaction(transaction));
 
     dispatch(refreshUser());
+
+    setCategoryInput("");
 
     e.target.reset();
   };

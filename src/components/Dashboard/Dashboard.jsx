@@ -138,6 +138,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
           handleCategoryClick={handleCategoryClick}
           handleRadioChange={handleRadioChange}
           categoryInput={categoryInput}
+          setCategoryInput={setCategoryInput}
         />
       </section>
     </main>
