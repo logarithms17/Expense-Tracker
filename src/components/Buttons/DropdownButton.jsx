@@ -7,6 +7,7 @@ import { logOut } from "../../redux/authOperations";
 import { Notify } from "notiflix";
 
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 export default function DropdownButton({ toggleModal }) {
   const dispatch = useDispatch();
@@ -50,14 +51,16 @@ export default function DropdownButton({ toggleModal }) {
           </MenuItem>
 
           <MenuItem>
-            <button
-              type="submit"
-              className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl gap-2"
-              onClick={handleLogout}
-            >
-              <FiLogOut />
-              Log out
-            </button>
+            <NavLink to="/">
+              <button
+                type="submit"
+                className="flex items-center w-full px-4 py-2 text-left text-sm data-[focus]:bg-neutral-900 data-[focus]:text-neutral-500 rounded-b-2xl gap-2"
+                onClick={handleLogout}
+              >
+                <FiLogOut />
+                Log out
+              </button>
+            </NavLink>
           </MenuItem>
         </div>
       </MenuItems>

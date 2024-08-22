@@ -82,7 +82,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
   };
 
   return (
-    <main className="flex lg:flex-row md:flex-col lg:gap-9 md:gap-1">
+    <main className="flex lg:flex-row sm:flex-col lg:gap-9 md:gap-1">
       {showCategoriesExpenseModal && (
         <CategoriesModal
           title="Expenses"
@@ -108,7 +108,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
           financial habits
           <br /> at your fingertips.
         </p>
-        <div className="grid grid-cols-2 gap-6 my-8">
+        <div className="grid md:grid-cols-2 gap-6 my-8">
           <FinanceWidget
             total={incomeTotal}
             title="Total Income"

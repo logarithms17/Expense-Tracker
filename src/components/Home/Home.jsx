@@ -9,16 +9,17 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="grid lg:grid-cols-2 mt-12 gap-10">
+    <div className="grid lg:grid-cols-2 mt-12 gap-10 lg:px-0 md:px-10">
       <HeroImage />
-      <section className="flex flex-col lg:justify-between lg:order-last md:order-first">
+      <section className="flex flex-col lg:justify-between lg:order-last sm:order-first">
         <div>
-          <p className="text-neutral-500 text-[12px]">EXPENSE LOG</p>
+          <p className="text-neutral-500 text-[15px]">EXPENSE LOG</p>
           <h1>
             Manage Your{" "}
             <span className="text-green-400 underline underline-offset-8 decoration-4">
               Finances
-            </span>{" "}
+            </span>
+            <br />
             Masterfully!
           </h1>
           <p className="description py-8">
@@ -43,7 +44,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="md:hidden lg:flex gap-7">
+        <div className="sm:hidden lg:flex gap-7">
           <div>
             <div className="flex items-center space-x-[-10px] ">
               <UserImage user={user1} alt="user1" z="z-20" />

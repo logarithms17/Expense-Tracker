@@ -68,7 +68,7 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
 
   return (
     <>
-      <div className="flex lg:flex-row md:flex-col lg:items-end justify-between relative">
+      <div className="flex lg:flex-row sm:flex-col lg:items-end justify-between relative">
         {showModal && (
           <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
         )}
@@ -80,15 +80,15 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
           />
         )}
 
-        <div className="flex flex-col md:mb-10 lg:mb-0">
+        <div className="flex flex-col sm:mb-10 lg:mb-0 sm">
           <h1 className="mt-[59px]">{title}</h1>
-          <p className="description mt-5">
+          <p className="description mt-5 md:w-[499px]">
             View and Manage every transaction seamlessly! Your entire financial{" "}
             <br /> landscape, all in one place.
           </p>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex md:flex-row sm:flex-col gap-6">
           <FinanceWidget
             total={incomeTotal}
             title="Total Income"
@@ -108,7 +108,7 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
         </div>
       </div>
       <div>
-        <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px]">
+        <div className="bg-neutral-900 py-5 rounded-3xl my-10 lg:h-[439px] mg:h-[504px] md:w-full">
           <SearchBar
             setSearchQuery={setSearchQuery}
             setSearchDate={setSearchDate}

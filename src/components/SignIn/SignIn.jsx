@@ -36,25 +36,24 @@ const SignIn = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-2 mt-12 gap-10 lg:w-full md:w-[399px] lg:px-0 md:px-20 ">
-      <div className="lg:flex md:hidden">
+    <div className="grid lg:grid-cols-2 mt-12 gap-10 lg:w-full lg:px-0 md:px-20 place-content-center">
+      <div className="lg:flex sm:hidden">
         <HeroImage />
       </div>
 
-      <section className="lg:pt-0 md:pt-10">
+      <section className="lg:pt-0 md:pt-10 md:w-[399px] sm:w-[335px]">
         <div>
           <div>
             <h1>Sign In</h1>
             <p className="description pb-10 pt-6">
-              Step into a world of hassle-free expense management! Your journey{" "}
-              <br />
+              Step into a world of hassle-free expense management! Your journey
               towards financial mastery begins here.
             </p>
           </div>
         </div>
 
         <form action="" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-6 pb-18 w-[399px]">
+          <div className="flex flex-col gap-6 pb-18 w-[399px] mx-auto">
             <InputBox
               type="email"
               placeholder="Email"

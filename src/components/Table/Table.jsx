@@ -16,34 +16,50 @@ const Table = ({ data, handleOpenModal }) => {
     });
   };
   return (
-    <div className=" pt-5 h-[350px] ">
-      <div className="h-[350px] min-w-full text-left text-sm font-light text-white grid grid-rows-[auto_1fr] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 overflow-hidden hover:overflow-y-auto">
+    <div className=" pt-5 h-[350px] w-full ">
+      <div className="h-[350px] min-w-full text-left text-sm font-light text-white grid grid-rows-[auto_1fr] overflow-x-auto ">
         {/* Header */}
-        <div className="bg-neutral-950 description grid grid-cols-7 text-lg">
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">
+        <div className="bg-neutral-950 description grid sm:grid-cols-6 lg:grid-cols-7 text-lg sm:w-[600px] md:w-full md:px-0 md:mx-0 sm:px=5">
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
             Category
           </div>
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Comment</div>
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Date</div>
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Time</div>
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Sum</div>
-          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Actions</div>
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
+            Comment
+          </div>
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
+            Date
+          </div>
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
+            Time
+          </div>
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
+            Sum
+          </div>
+          <div className="lg:px-10  py-[15px] md:font-medium text-center">
+            Actions
+          </div>
         </div>
 
         {/* Table Body */}
-        <div className="">
+        <div className="pb-5 h-[260px] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 overflow-hidden hover:overflow-y-auto">
           {data.map((item) => (
-            <div key={item._id} className="grid grid-cols-7">
-              <div className="lg:px-10 md:pl-10 py-[15px]">
+            <div key={item._id} className="grid sm:grid-cols-6 lg:grid-cols-7 ">
+              <div className="lg:px-10 lg:pl-10 py-[15px] truncate text-center">
                 {item.category.categoryName}
               </div>
-              <div className="lg:px-10 md:pl-10 py-[15px]">{item.comment}</div>
-              <div className="lg:px-10 md:pl-10 py-[15px] overflow-hidden overflow-ellipsis">
+              <div className="lg:px-10  py-[15px] truncate text-center">
+                {item.comment}
+              </div>
+              <div className="lg:px-10  py-[15px] truncate text-center">
                 {item.date}
               </div>
-              <div className="lg:px-10 md:pl-10 py-[15px]">{item.time}</div>
-              <div className="lg:px-10 md:pl-10 py-[15px]">{item.sum}</div>
-              <div className="lg:px-10 md:pl-10 py-[15px] flex gap-3">
+              <div className="lg:px-10  py-[15px] truncate text-center">
+                {item.time}
+              </div>
+              <div className="lg:px-10  py-[15px] truncate text-center">
+                {item.sum}
+              </div>
+              <div className="lg:px-10  py-[15px] flex gap-3">
                 <ButtonWithIcon
                   title="Edit"
                   icon={edit}
@@ -58,7 +74,7 @@ const Table = ({ data, handleOpenModal }) => {
                   aria-label={`Delete transaction ${item._id}`}
                 >
                   <RiDeleteBin6Line />
-                  <p className="lg:block md:hidden">Delete</p>
+                  <p className="lg:block sm:hidden">Delete</p>
                 </button>
               </div>
             </div>

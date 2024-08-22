@@ -12,8 +12,8 @@ const SearchBar = ({ setSearchQuery, setSearchDate }) => {
 
   return (
     <div className=" ">
-      <div className="flex gap-5 items-center px-10">
-        <label htmlFor="search" className="relative">
+      <div className="flex md:flex-row sm:flex-col gap-5 items-center px-10">
+        <label htmlFor="search" className="relative md:w-[254px] sm:w-full">
           <img
             src={searchIcon}
             alt=""
@@ -25,14 +25,14 @@ const SearchBar = ({ setSearchQuery, setSearchDate }) => {
           <input
             type="text"
             placeholder="Search for anything.."
-            className="bg-black px-5 py-3 w-[254px] rounded-3xl placeholder:text-neutral-500 z-10"
+            className="bg-black px-5 py-3 sm:w-full md:w-[254px] rounded-3xl placeholder:text-neutral-500 z-10"
             onChange={handleSearch}
           />
         </label>
-        <label htmlFor="" className="relative">
+        <label htmlFor="" className="relative sm:w-full md:w-[254px]">
           <input
             type="date"
-            className="bg-neutral-900 border-2 border-neutral-700 px-5 py-2 rounded-3xl text-neutral-500 no-calendar-icon"
+            className="bg-neutral-900 border-2 border-neutral-700 px-5 py-2 rounded-3xl text-neutral-500 no-calendar-icon sm:w-full md:w-[254px]"
             onChange={handleDate}
           />
           <svg
