@@ -15,6 +15,7 @@ import { refreshUser } from "../../redux/authOperations";
 const Dashboard = ({ showModal, toggleModal }) => {
   const [categoryInput, setCategoryInput] = useState("");
   const [selectedTransactionType, setSelectedTransactionType] = useState("");
+  const [chartType, setChartType] = useState("expenses");
   // Toggle Categories Expense Modal
   const [showCategoriesExpenseModal, setShowCategoriesExpenseModal] =
     useState(false);
@@ -81,7 +82,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
   };
 
   return (
-    <main className="flex gap-9">
+    <main className="flex lg:flex-row md:flex-col lg:gap-9 md:gap-1">
       {showCategoriesExpenseModal && (
         <CategoriesModal
           title="Expenses"
@@ -115,6 +116,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
             percentage=""
             styles="dashboardWidget"
             textColor="text-white"
+            setChartType={setChartType}
           />
           <FinanceWidget
             total={expenseTotal}
@@ -123,14 +125,15 @@ const Dashboard = ({ showModal, toggleModal }) => {
             percentage=""
             styles="dashboardWidget"
             textColor="text-white"
+            setChartType={setChartType}
           />
         </div>
 
-        <div>
-          <ExpenseChart />
+        <div className="order-last">
+          <ExpenseChart chartType={chartType} />
         </div>
       </section>
-      <section className="mt-14 p-8 bg-neutral-900 rounded-3xl w-[600px]">
+      <section className="mt-14 p-8 bg-neutral-900 rounded-3xl lg:w-[600px]">
         <TransactionForm
           handleCategoryClick={handleCategoryClick}
           handleRadioChange={handleRadioChange}

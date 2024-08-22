@@ -83,7 +83,7 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
 
   return (
     <>
-      <div className="flex items-end justify-between relative">
+      <div className="flex lg:flex-row md:flex-col lg:items-end justify-between relative">
         {showModal && (
           <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
         )}
@@ -95,7 +95,7 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
           />
         )}
 
-        <div>
+        <div className="flex flex-col md:mb-10 lg:mb-0">
           <h1 className="mt-[59px]">{title}</h1>
           <p className="description mt-5">
             View and Manage every transaction seamlessly! Your entire financial{" "}
@@ -123,7 +123,7 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
         </div>
       </div>
       <div>
-        <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px] ">
+        <div className="bg-neutral-900 py-5 rounded-3xl my-10 lg:h-[439px] mg:h-[504px] ">
           <SearchBar
             setSearchQuery={setSearchQuery}
             setSearchDate={setSearchDate}

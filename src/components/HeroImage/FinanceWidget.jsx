@@ -8,6 +8,7 @@ const FinanceWidget = ({
   textColor,
   src,
   total,
+  setChartType,
 }) => {
   const formattedExpense = total.toLocaleString(undefined, {
     minimumFractionDigits: 3,
@@ -26,8 +27,19 @@ const FinanceWidget = ({
     symbol = "€";
   }
 
+  const handleClick = () => {
+    console.log("entered");
+    if (title === "Total Expense") {
+      setChartType("expenses");
+    }
+
+    if (title === "Total Income") {
+      setChartType("incomes");
+    }
+  };
+
   return (
-    <div className={styles}>
+    <div className={styles} onClick={handleClick}>
       <img
         src={src}
         alt="arrow-icon"

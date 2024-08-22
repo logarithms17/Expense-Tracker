@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="grid grid-cols-2 mt-12 gap-10">
+    <div className="grid lg:grid-cols-2 mt-12 gap-10">
       <HeroImage />
-      <section className="flex flex-col justify-between">
+      <section className="flex flex-col lg:justify-between lg:order-last md:order-first">
         <div>
           <p className="text-neutral-500 text-[12px]">EXPENSE LOG</p>
           <h1>
@@ -43,7 +43,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="flex gap-7">
+        <div className="md:hidden lg:flex gap-7">
           <div>
             <div className="flex items-center space-x-[-10px] ">
               <UserImage user={user1} alt="user1" z="z-20" />

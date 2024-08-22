@@ -68,7 +68,7 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
 
   return (
     <>
-      <div className="flex items-end justify-between">
+      <div className="flex lg:flex-row md:flex-col lg:items-end justify-between relative">
         {showModal && (
           <UserSetsModal title="Profile Settings" toggleModal={toggleModal} />
         )}
@@ -80,7 +80,7 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
           />
         )}
 
-        <div>
+        <div className="flex flex-col md:mb-10 lg:mb-0">
           <h1 className="mt-[59px]">{title}</h1>
           <p className="description mt-5">
             View and Manage every transaction seamlessly! Your entire financial{" "}

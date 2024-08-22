@@ -8,7 +8,7 @@ const MainHeader = ({ toggleModal }) => {
   return (
     <div className="flex justify-between border-b-[1px] border-neutral-600 pb-6 relative">
       <InitialHeader />
-      <div className="flex gap-6">
+      <div className="gap-6 sm:hidden lg:flex">
         <NavLink to="/all-expense">
           <SecondaryButton
             title="All Expense"
@@ -24,7 +24,9 @@ const MainHeader = ({ toggleModal }) => {
           />
         </NavLink>
       </div>
-      <DropdownButton toggleModal={toggleModal} />
+      <div className="sm:hidden lg:flex">
+        <DropdownButton toggleModal={toggleModal} />
+      </div>
     </div>
   );
 };

@@ -36,13 +36,15 @@ const getColors = (count) => {
   return [...COLORS, ...additionalColors];
 };
 
-const ExpenseChart = () => {
+const ExpenseChart = ({ chartType }) => {
+  console.log(chartType);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Dispatch the action to fetch expenses on component mount
-    dispatch(getTransactions({ type: "expenses" }));
-  }, [dispatch]);
+    if (chartType) {
+      dispatch(getTransactions({ type: chartType }));
+    }
+  }, [dispatch, chartType]);
 
   const transactions = useSelector((state) => state.auth.transactions.data);
 
@@ -56,6 +58,13 @@ const ExpenseChart = () => {
           acc[categoryName] = 0;
         }
         acc[categoryName] += sum;
+      }
+
+      if (type === "incomes" && categoryName) {
+        if (!acc[categoryName]) {
+          acc[categoryName] = 0;
+        }
+        acc[categoryName] -= sum;
       }
 
       return acc;
@@ -79,8 +88,6 @@ const ExpenseChart = () => {
     return sortedData;
   }, [transactions]);
 
-  console.log(data);
-
   return (
     <div
       className="relative"
@@ -93,7 +100,9 @@ const ExpenseChart = () => {
       }}
     >
       <h2 style={{ color: "white", marginBottom: "20px" }}>
-        Expenses Categories
+        {chartType === "expenses"
+          ? "Expenses Categories"
+          : "Incomes Categories"}
       </h2>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>

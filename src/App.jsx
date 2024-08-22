@@ -22,13 +22,8 @@ const App = () => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("entered");
-    dispatch(getTransactions());
-  }, [dispatch]);
-
   return (
-    <div className="container mx-auto py-8 px-[100px]">
+    <div className="container mx-auto py-8 lg:px-[100px] md:px-[32px]">
       <Routes>
         <Route
           path="/dashboard"

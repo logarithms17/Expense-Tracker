@@ -1,13 +1,11 @@
 import PropTypes from "prop-types";
+import { FiEdit2 } from "react-icons/fi";
 
 const ButtonWithIcon = ({ title, icon, handleOpenModal, id, type }) => {
   return (
-    <button
-      className="flex items-center gap-3 bg-green-400 text-black py-1 pl-8 pr-14 rounded-3xl font-medium hover:bg-green-300"
-      onClick={handleOpenModal}
-    >
-      <img src={icon} alt="" className="text-black" />
-      {title}
+    <button className="tablePrimaryButton" onClick={handleOpenModal}>
+      <FiEdit2 />
+      <p className="lg:block md:hidden">{title}</p>
     </button>
   );
 };

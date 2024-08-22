@@ -29,9 +29,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 mt-12 gap-10">
-      <HeroImage />
-      <section>
+    <div className="grid lg:grid-cols-2 mt-12 gap-10 lg:w-full md:w-[399px] lg:px-0 md:px-20 ">
+      <div className="lg:flex md:hidden">
+        <HeroImage />
+      </div>
+
+      <section className="lg:pt-0 md:pt-10">
         <div>
           <div>
             <h1>Sign Up</h1>

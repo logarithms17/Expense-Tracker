@@ -16,30 +16,34 @@ const Table = ({ data, handleOpenModal }) => {
     });
   };
   return (
-    <div className=" pt-5 h-[350px] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-900 overflow-hidden overflow-y-scroll scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl">
-      <div className="h-[400px] min-w-full text-left text-sm font-light text-white overflow-hidden grid grid-rows-[auto_1fr]">
+    <div className=" pt-5 h-[350px] ">
+      <div className="h-[350px] min-w-full text-left text-sm font-light text-white grid grid-rows-[auto_1fr] scrollbar-thin scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 overflow-hidden hover:overflow-y-auto">
         {/* Header */}
         <div className="bg-neutral-950 description grid grid-cols-7 text-lg">
-          <div className="px-10 py-[15px] font-medium">Category</div>
-          <div className="px-10 py-[15px] font-medium">Comment</div>
-          <div className="px-10 py-[15px] font-medium">Date</div>
-          <div className="px-10 py-[15px] font-medium">Time</div>
-          <div className="px-10 py-[15px] font-medium">Sum</div>
-          <div className="px-10 py-[15px] font-medium">Actions</div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">
+            Category
+          </div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Comment</div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Date</div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Time</div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Sum</div>
+          <div className="lg:px-10 md:pl-10 py-[15px] font-medium">Actions</div>
         </div>
 
         {/* Table Body */}
-        <div className="overflow-y-auto">
+        <div className="">
           {data.map((item) => (
             <div key={item._id} className="grid grid-cols-7">
-              <div className="px-10 py-[15px]">
+              <div className="lg:px-10 md:pl-10 py-[15px]">
                 {item.category.categoryName}
               </div>
-              <div className="px-10 py-[15px]">{item.comment}</div>
-              <div className="px-10 py-[15px]">{item.date}</div>
-              <div className="px-10 py-[15px]">{item.time}</div>
-              <div className="px-10 py-[15px]">{item.sum}</div>
-              <div className="px-10 py-[15px] flex gap-3">
+              <div className="lg:px-10 md:pl-10 py-[15px]">{item.comment}</div>
+              <div className="lg:px-10 md:pl-10 py-[15px] overflow-hidden overflow-ellipsis">
+                {item.date}
+              </div>
+              <div className="lg:px-10 md:pl-10 py-[15px]">{item.time}</div>
+              <div className="lg:px-10 md:pl-10 py-[15px]">{item.sum}</div>
+              <div className="lg:px-10 md:pl-10 py-[15px] flex gap-3">
                 <ButtonWithIcon
                   title="Edit"
                   icon={edit}
@@ -54,7 +58,7 @@ const Table = ({ data, handleOpenModal }) => {
                   aria-label={`Delete transaction ${item._id}`}
                 >
                   <RiDeleteBin6Line />
-                  Delete
+                  <p className="lg:block md:hidden">Delete</p>
                 </button>
               </div>
             </div>
