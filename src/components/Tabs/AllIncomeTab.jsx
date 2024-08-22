@@ -15,6 +15,9 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
   const [showTransactionForm, setShowTransactionForm] = useState(false);
   const [transactionsData, setTransactionsData] = useState(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+
   const dispatch = useDispatch();
 
   const toggleFormModal = () => setShowTransactionForm((prev) => !prev);
@@ -46,6 +49,22 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
       dispatch(getTransactions({ type: "incomes" }));
     }
   }, [showTransactionForm, dispatch]);
+
+  // filter functionality
+  let filteredData;
+  if (searchQuery) {
+    filteredData = data.filter((transaction) => {
+      return transaction.category.categoryName
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+    });
+  } else if (searchDate) {
+    filteredData = data.filter((transaction) => {
+      return transaction.date.toLowerCase().includes(searchDate.toLowerCase());
+    });
+  } else {
+    filteredData = data;
+  }
 
   return (
     <>
@@ -90,8 +109,11 @@ const AllIncomeTab = ({ title, showModal, toggleModal }) => {
       </div>
       <div>
         <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px]">
-          <SearchBar />
-          <Table data={data} handleOpenModal={handleOpenModal} />
+          <SearchBar
+            setSearchQuery={setSearchQuery}
+            setSearchDate={setSearchDate}
+          />
+          <Table data={filteredData} handleOpenModal={handleOpenModal} />
         </div>
       </div>
     </>

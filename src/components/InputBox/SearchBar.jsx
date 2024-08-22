@@ -1,7 +1,15 @@
 import React from "react";
 import searchIcon from "../../assets/search.svg";
 
-const SearchBar = () => {
+const SearchBar = ({ setSearchQuery, setSearchDate }) => {
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleDate = (e) => {
+    setSearchDate(e.target.value);
+  };
+
   return (
     <div className=" ">
       <div className="flex gap-5 items-center px-10">
@@ -18,12 +26,14 @@ const SearchBar = () => {
             type="text"
             placeholder="Search for anything.."
             className="bg-black px-5 py-3 w-[254px] rounded-3xl placeholder:text-neutral-500 z-10"
+            onChange={handleSearch}
           />
         </label>
         <label htmlFor="" className="relative">
           <input
             type="date"
             className="bg-neutral-900 border-2 border-neutral-700 px-5 py-2 rounded-3xl text-neutral-500 no-calendar-icon"
+            onChange={handleDate}
           />
           <svg
             className="absolute top-3 right-5 w-6 h-6 text-green-500 pointer-events-none"

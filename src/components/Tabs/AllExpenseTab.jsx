@@ -17,6 +17,9 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   const [showTransactionForm, setShowTransactionForm] = useState(false);
   const [transactionsData, setTransactionsData] = useState(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+
   const dispatch = useDispatch();
 
   const toggleFormModal = () => setShowTransactionForm((prev) => !prev);
@@ -32,7 +35,6 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   const data = useSelector((state) => {
     return state.auth.transactions.data;
   });
-
 
   const handleOpenModal = (item) => {
     setShowTransactionForm(true);
@@ -51,6 +53,33 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
       dispatch(getTransactions({ type: "expenses" }));
     }
   }, [showTransactionForm, dispatch]);
+
+  // filter functionality
+  let filteredData;
+  if (searchQuery) {
+    filteredData = data.filter((transaction) => {
+      return transaction.category.categoryName
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+    });
+  } else if (searchDate) {
+    filteredData = data.filter((transaction) => {
+      return transaction.date.toLowerCase().includes(searchDate.toLowerCase());
+    });
+  } else {
+    filteredData = data;
+  }
+  // const filteredData = data.filter((transaction) => {
+  //   return transaction.category.categoryName
+  //     .toLowerCase()
+  //     .includes(searchQuery.toLowerCase());
+  // });
+
+  // //Date Search Functionality
+  // const filteredDataByDate = data.filter((transaction) => {
+  //   console.log(transaction.date);
+  //   return transaction.date.toLowerCase().includes(searchDate.toLowerCase());
+  // });
 
   return (
     <>
@@ -95,8 +124,11 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
       </div>
       <div>
         <div className="bg-neutral-900 py-5 rounded-3xl my-10 h-[439px] ">
-          <SearchBar />
-          <Table data={data} handleOpenModal={handleOpenModal} />
+          <SearchBar
+            setSearchQuery={setSearchQuery}
+            setSearchDate={setSearchDate}
+          />
+          <Table data={filteredData} handleOpenModal={handleOpenModal} />
         </div>
       </div>
     </>

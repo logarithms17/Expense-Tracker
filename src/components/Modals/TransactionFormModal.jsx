@@ -80,7 +80,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
       type,
     };
 
-
     dispatch(updateTransaction({ type, id, transaction }));
     dispatch(refreshUser());
 
@@ -98,7 +97,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
   const handleRadioChange = (e) => {
     setSelectedTransactionType(e.target.value);
   };
-
 
   return (
     <>
@@ -213,7 +211,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
 export default TransactionFormModal;
 
 TransactionFormModal.propTypes = {
-  handleRadioChange: PropTypes.func.isRequired,
   toggleFormModal: PropTypes.func.isRequired,
   transactionsData: PropTypes.object.isRequired,
 };

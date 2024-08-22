@@ -17,8 +17,6 @@ const CategoriesModal = ({
 
   const dispatch = useDispatch();
 
-  console.log(title);
-
   const handleChange = (e) => {
     setNewCategory(e.target.value);
   };

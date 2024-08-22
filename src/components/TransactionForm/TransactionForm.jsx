@@ -5,7 +5,7 @@ import TimeInput from "../InputBox/TimeInput";
 import DateInput from "../InputBox/DateInput";
 import PropTypes from "prop-types";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { createTransaction, refreshUser } from "../../redux/authOperations";
 
@@ -15,8 +15,6 @@ const TransactionForm = ({
   categoryInput,
 }) => {
   const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.auth.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -13,8 +13,6 @@ const CategoryList = ({
   handleCategorySelection,
   title,
 }) => {
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const categoryList =
     useSelector((state) =>
