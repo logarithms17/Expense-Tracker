@@ -2,7 +2,7 @@ import CategoryList from "./CategoryList";
 import CloseButton from "../Buttons/CloseButton";
 
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createCategory, updateCategory } from "../../redux/authOperations";
 import { useState } from "react";
 

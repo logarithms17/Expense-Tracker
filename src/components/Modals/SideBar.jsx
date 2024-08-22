@@ -4,7 +4,6 @@ import UseToggle from "../../Hook/UseToggle";
 import UserSetsModal from "./UserSetsModal";
 
 import { NavLink } from "react-router-dom";
-import SecondaryButton from "../Buttons/SecondaryButton";
 
 const SideBar = ({ setShowSidebar }) => {
   const { showModal, toggleModal } = UseToggle();

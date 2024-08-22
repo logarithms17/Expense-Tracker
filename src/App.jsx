@@ -7,7 +7,7 @@ import AllExpensePage from "./pages/AllExpensePage";
 
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { refreshUser, getTransactions } from "./redux/authOperations";
+import { refreshUser } from "./redux/authOperations";
 
 import RestrictedRoute from "./components/Routes/RestrictedRoute";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
