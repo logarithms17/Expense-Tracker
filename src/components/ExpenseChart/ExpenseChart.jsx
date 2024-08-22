@@ -1,21 +1,85 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { useSelector, useDispatch } from "react-redux";
 import CategoriesList from "./CategoriesList";
-
 import { getTransactions } from "../../redux/authOperations";
-import { useSelector } from "react-redux";
+
+// Function to generate a random color
+const generateRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+// Function to ensure there are enough colors
+const getColors = (count) => {
+  const COLORS = [
+    "#00E676",
+    "#1DE9B6",
+    "#FFFFFF",
+    "#757575",
+    "#FF5722",
+    "#FFC107",
+    "#9C27B0",
+    "#E91E63",
+  ];
+  if (count <= COLORS.length) {
+    return COLORS.slice(0, count);
+  }
+  const additionalColors = [];
+  for (let i = COLORS.length; i < count; i++) {
+    additionalColors.push(generateRandomColor());
+  }
+  return [...COLORS, ...additionalColors];
+};
 
 const ExpenseChart = () => {
-  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
-  const data = [
-    { name: "Hobby", value: 45 },
-    { name: "Products", value: 35 },
-    { name: "Cinema", value: 20 },
-    { name: "Health", value: 10 },
-  ];
+  useEffect(() => {
+    // Dispatch the action to fetch expenses on component mount
+    dispatch(getTransactions({ type: "expenses" }));
+  }, [dispatch]);
 
-  const COLORS = ["#00E676", "#1DE9B6", "#FFFFFF", "#757575"];
+  const transactions = useSelector((state) => state.auth.transactions.data);
+
+  const data = useMemo(() => {
+    const categoryMap = transactions.reduce((acc, transaction) => {
+      const { category, sum, type } = transaction;
+      const categoryName = category?.categoryName;
+
+      if (type === "expenses" && categoryName) {
+        if (!acc[categoryName]) {
+          acc[categoryName] = 0;
+        }
+        acc[categoryName] += sum;
+      }
+
+      return acc;
+    }, {});
+
+    const totalSum = Object.values(categoryMap).reduce(
+      (acc, value) => acc + value,
+      0
+    );
+
+    const sortedData = Object.keys(categoryMap)
+      .map((categoryName, index) => ({
+        name: categoryName,
+        value: Number(
+          ((categoryMap[categoryName] / totalSum) * 100).toFixed(2)
+        ), // Ensure this is a number
+        color: getColors(Object.keys(categoryMap).length)[index],
+      }))
+      .sort((a, b) => b.value - a.value);
+
+    return sortedData;
+  }, [transactions]);
+
+  console.log(data);
 
   return (
     <div
@@ -29,7 +93,7 @@ const ExpenseChart = () => {
       }}
     >
       <h2 style={{ color: "white", marginBottom: "20px" }}>
-        Expenses categories
+        Expenses Categories
       </h2>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
@@ -47,7 +111,7 @@ const ExpenseChart = () => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={entry.color} // Use the color from the data
               />
             ))}
           </Pie>
@@ -67,7 +131,7 @@ const ExpenseChart = () => {
         className="h-[126px] bg-neutral-900 w-[191px] absolute top-[100px] right-[36px]"
         style={{ backgroundColor: "#1E1E1E" }}
       >
-        <CategoriesList data={data} colors={COLORS} />
+        <CategoriesList data={data} />
       </div>
     </div>
   );

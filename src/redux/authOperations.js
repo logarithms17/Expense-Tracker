@@ -288,7 +288,6 @@ export const getTransactions = createAsyncThunk(
                     Authorization: `Bearer ${token}` // Pass the token in the header
                 }
             });
-
             return response.data;
         } catch (error) {
             console.log("Error occurred during getTransactions API call: ", error.response?.data || error.message);
