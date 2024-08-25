@@ -102,6 +102,7 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
       <div className="w-[500px] h-[661px] bg-neutral-900 opacity-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-3xl px-10 py-8">
         <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
           <div className="flex items-center gap-5">
+            
             {showExpenseTransaction && (
               <RadioInput
                 title="Expense"
@@ -111,6 +112,7 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
                 handleRadioChange={handleRadioChange}
               />
             )}
+
             {showIncomeTransaction && (
               <RadioInput
                 title="Income"
