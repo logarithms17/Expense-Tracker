@@ -13,9 +13,12 @@ const TransactionForm = ({
   handleCategoryClick,
   handleRadioChange,
   categoryInput,
+  categoryId,
   setCategoryInput,
 }) => {
   const dispatch = useDispatch();
+
+  console.log(categoryInput);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ const TransactionForm = ({
 
     const date = formData.get("date");
     const time = formData.get("time");
-    const category = formData.get("category");
+    const category = categoryId;
     const sum = formData.get("sum");
     const comment = formData.get("comment");
     const type = formData.get("type");
@@ -77,7 +80,7 @@ const TransactionForm = ({
             placeholder="Please choose or create a category"
             className={`bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 text-neutral-500 w-full custom-input-icon`}
             name="category"
-            id="category"
+            id={categoryId}
             onClick={handleCategoryClick}
             value={categoryInput}
             onChange={() => {}}

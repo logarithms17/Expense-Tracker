@@ -22,6 +22,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
   // Toggle Categories Incomes Modal
   const [showCategoriesIncomeModal, setShowCategoriesIncomeModal] =
     useState(false);
+  const [categoryId, setCategoryId] = useState("");
 
   const dispatch = useDispatch();
 
@@ -70,8 +71,9 @@ const Dashboard = ({ showModal, toggleModal }) => {
   };
 
   // HANDLES THE VALUE OF THE CATEGORY IN THE TRANSACTION FORM
-  const handleCategorySelection = (_id, title) => {
-    setCategoryInput(_id);
+  const handleCategorySelection = (categoryName, _id, title) => {
+    setCategoryInput(categoryName);
+    setCategoryId(_id);
     if (title === "Expenses") {
       toggleModalExpense();
     }
@@ -139,6 +141,7 @@ const Dashboard = ({ showModal, toggleModal }) => {
           handleRadioChange={handleRadioChange}
           categoryInput={categoryInput}
           setCategoryInput={setCategoryInput}
+          categoryId={categoryId}
         />
       </section>
     </main>

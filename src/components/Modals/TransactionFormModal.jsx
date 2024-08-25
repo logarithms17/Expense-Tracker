@@ -5,10 +5,7 @@ import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  refreshUser,
-  updateTransaction,
-} from "../../redux/authOperations";
+import { refreshUser, updateTransaction } from "../../redux/authOperations";
 
 const initialTime = () => {
   const date = new Date();
@@ -50,6 +47,8 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
     }
   }, [transactionsData.type]);
 
+  console.log(transactionsData);
+
   const dispatch = useDispatch();
 
   // HANDLE CURRENCY NAME
@@ -63,7 +62,7 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
 
     const date = formData.get("date");
     const time = formData.get("time");
-    const category = formData.get("category");
+    const category = transactionsData.category._id;
     const sum = Number(formData.get("sum"));
     const comment = formData.get("comment");
     const type = selectedTransactionType;
@@ -160,9 +159,9 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
                 placeholder="Please choose or create a category"
                 className={`bg-neutral-900 border-2 border-neutral-500 p-3 rounded-xl placeholder:text-neutral-500 text-neutral-500 w-full custom-input-icon`}
                 name="category"
-                id="category"
+                id={transactionsData.category._id}
                 // onClick={handleCategoryClick}
-                value={transactionsData.category._id}
+                value={transactionsData.category.categoryName}
                 onChange={() => {}}
               />
             </label>

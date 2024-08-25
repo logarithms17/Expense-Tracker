@@ -3,7 +3,6 @@ import FinanceWidget from "../HeroImage/FinanceWidget";
 import arrowIcon from "../../assets/arrow-icon.svg";
 import arrowDownIcon from "../../assets/angle-arrow-down.svg";
 
-
 import PropTypes from "prop-types";
 import SearchBar from "../InputBox/SearchBar";
 import Table from "../Table/Table";
@@ -70,17 +69,8 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
   } else {
     filteredData = data;
   }
-  // const filteredData = data.filter((transaction) => {
-  //   return transaction.category.categoryName
-  //     .toLowerCase()
-  //     .includes(searchQuery.toLowerCase());
-  // });
 
-  // //Date Search Functionality
-  // const filteredDataByDate = data.filter((transaction) => {
-  //   console.log(transaction.date);
-  //   return transaction.date.toLowerCase().includes(searchDate.toLowerCase());
-  // });
+  console.log(transactionsData);
 
   return (
     <>
@@ -95,7 +85,6 @@ const AllExpenseTab = ({ title, showModal, toggleModal }) => {
             transactionsData={transactionsData}
           />
         )}
-        
 
         <div className="flex flex-col sm:mb-10 lg:mb-0">
           <h1 className="mt-[59px]">{title}</h1>
