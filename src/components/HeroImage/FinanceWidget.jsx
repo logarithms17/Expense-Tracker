@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const FinanceWidget = ({
   title,
@@ -15,6 +16,10 @@ const FinanceWidget = ({
     maximumFractionDigits: 3,
   });
 
+  const location = useLocation();
+
+  const pathname = location.pathname;
+
   const currency = useSelector((state) => state.auth.user.currency);
 
   let symbol;
@@ -28,6 +33,9 @@ const FinanceWidget = ({
   }
 
   const handleClick = () => {
+    if (pathname !== "/dashboard") {
+      return;
+    }
     if (title === "Total Expense") {
       setChartType("expenses");
     }

@@ -9,6 +9,7 @@ const SideBar = ({ setShowSidebar }) => {
   const { showModal, toggleModal } = UseToggle();
 
   const handleCloseButton = () => {
+    
     setShowSidebar(false);
   };
 

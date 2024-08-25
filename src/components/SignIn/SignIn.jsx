@@ -28,10 +28,6 @@ const SignIn = () => {
       return;
     }
 
-    if (email && password) {
-      Notify.success("You have successfully logged in!");
-    }
-
     form.reset();
   };
 

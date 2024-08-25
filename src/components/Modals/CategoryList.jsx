@@ -13,13 +13,14 @@ const CategoryList = ({
   handleCategorySelection,
   title,
 }) => {
-
   const categoryList =
     useSelector((state) =>
       title === "Expenses"
         ? state.auth.user.categories.expenses
         : state.auth.user.categories.incomes
     ) || []; // create an empty array if undefined
+
+  console.log(categoryList);
 
   const dispatch = useDispatch();
 
@@ -33,7 +34,9 @@ const CategoryList = ({
         <li key={_id} className="py-2 text-lg flex justify-between">
           {categoryName}
           <div className="flex mr-4 gap-3">
-            <button onClick={(e) => handleCategorySelection(_id, title)}>
+            <button
+              onClick={(e) => handleCategorySelection(categoryName, _id, title)}
+            >
               <img src={check} alt="" />
             </button>
             <button onClick={(e) => handleButtonChange(_id, categoryName)}>
