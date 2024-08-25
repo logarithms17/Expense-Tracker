@@ -20,8 +20,6 @@ const CategoryList = ({
         : state.auth.user.categories.incomes
     ) || []; // create an empty array if undefined
 
-  console.log(categoryList);
-
   const dispatch = useDispatch();
 
   const handleDeleteCategory = (id) => {

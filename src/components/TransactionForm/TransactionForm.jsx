@@ -18,7 +18,6 @@ const TransactionForm = ({
 }) => {
   const dispatch = useDispatch();
 
-  console.log(categoryInput);
 
   const handleSubmit = (e) => {
     e.preventDefault();
