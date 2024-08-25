@@ -47,8 +47,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
     }
   }, [transactionsData.type]);
 
-  console.log(transactionsData);
-
   const dispatch = useDispatch();
 
   // HANDLE CURRENCY NAME
@@ -76,7 +74,6 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
       comment,
       type,
     };
-    
 
     dispatch(updateTransaction({ type, id, transaction }));
     dispatch(refreshUser());
