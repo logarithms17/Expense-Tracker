@@ -77,6 +77,7 @@ const TransactionFormModal = ({ toggleFormModal, transactionsData }) => {
       comment,
       type,
     };
+    
 
     dispatch(updateTransaction({ type, id, transaction }));
     dispatch(refreshUser());
